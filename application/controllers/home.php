@@ -4,6 +4,9 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$data['contenido'] = 'pagina/inicio';
+
+		$this->load->view('templates/layoutPagina',$data);
+		
 	}
 }
