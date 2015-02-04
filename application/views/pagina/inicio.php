@@ -366,7 +366,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<div class="panel-contexto bg-gris-c">
-							<legend><a href="#">OPINIÓN</a></legend>
+							<legend><a href="#">OPINIÓN</a></legend> 
 							<div class="carousel-reviews">
 								<div id="carousel-reviews" class="carousel slide" data-ride="carousel">
 									<div class="carousel-inner">
@@ -374,7 +374,7 @@
 											<div class="row">
 												<div class="col-md-4 col-sm-6">
 													<div class="person-text rel">
-														<img src="media/img/perfil.png" class="img-circle">
+														<img src="media/img/usuarios/perfil_default.png" class="img-circle">
 														<span>Nombre</span>
 													</div>
 													<div class="block-text rel zmin">
@@ -384,7 +384,7 @@
 												</div>
 												<div class="hidden-xs col-md-4 col-sm-6">
 													<div class="person-text rel">
-														<img src="media/img/perfil.png" class="img-circle">
+														<img src="media/img/usuarios/perfil_default.png" class="img-circle">
 														<span>Nombre</span>
 													</div>
 													<div class="block-text rel zmin">
@@ -394,7 +394,7 @@
 												</div>
 												<div class="hidden-xs col-md-4 col-sm-6">
 													<div class="person-text rel">
-														<img src="media/img/perfil.png" class="img-circle">
+														<img src="media/img/usuarios/perfil_default.png" class="img-circle">
 														<span>Nombre</span>
 													</div>
 													<div class="block-text rel zmin">

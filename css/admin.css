@@ -119,7 +119,7 @@ li.nav-perfil > div.info-perfil > h4{
 }
 .sidebar ul li a.active, .sidebar ul li a:hover, .nav>li>a:hover, .nav>li>a:focus, .nav .open>a {
     background-color: #BBBBBB !important;
-    color: #fff;
+    color: #111111 !important;
 }
 .sidebar .arrow {
     float: right;
@@ -446,4 +446,18 @@ table.dataTable thead .sorting:after {
 .form-control.input-readonly:focus{
     border: none;
     box-shadow: none;
+}
+.note-editor .note-editable {
+    background-color: #fff;
+}
+.secciones{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.liga-nota{
+    margin-top: 20px;
+    display: none;
+}
+.btn-nota{
+    margin-top: 20px;
 }

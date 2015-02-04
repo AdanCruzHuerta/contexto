@@ -12,10 +12,16 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/animate.min.css">
 		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/summernote.css">
+		<link rel="stylesheet" type="text/css" href="css/green.css">
 		<link rel="stylesheet" type="text/css" href="css/admin.css">
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/summernote.min.js"></script>
+		<script type="text/javascript" src="js/icheck.js"></script>
 		<script type="text/javascript" src="js/admin.js"></script>
+
+
 	</head>
 	<body> 
 		<div id="wrapper">
@@ -251,18 +257,26 @@
 	                            </div>
 	                        </li>
 	                        <li>
-	                            <a href="" class="<?php if($contenido == "admon/inicio"){echo "active";} ?>" ><i class="fa fa-book fa-fw"></i> Notas <span class="fa arrow"></span></a>
-	                            <ul class="nav nav-second-level">
+	                            <a href="" class="<?php if($contenido == 'administrador/inicio') echo 'active';?>" ><i class="fa fa-book fa-fw"></i> Notas <span class="fa arrow"></span></a>
+	                        	<ul class="nav nav-second-level">
 	                            	<li href="#">
-	                            		<a href="#">Consultar</a>
+	                            		<a href="javascript:;">Consultar</a>
 	                            	</li>
 	                            </ul>
 	                        </li>
 	                        <li>
-	                            <a href="<?php echo site_url("admon/pagina");?>" class="<?php if($contenido == "admon/pagina"){echo "active";} ?>" ><i class="fa fa-desktop fa-fw"></i> Pagina</a>
+	                            <a href="<?php echo site_url("admon/pagina");?>" class="" ><i class="fa fa-desktop fa-fw"></i> Página <span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                            	<li href="#">
+	                            		<a href="javascript:;">Configuración</a>
+	                            	</li>
+	                            	<li href="#">
+	                            		<a href="<?php echo base_url();?>" target="_blank">Ver página</a>
+	                            	</li>
+	                            </ul>
 	                        </li>
 	                        <li>
-	                            <a href="<?php echo site_url("admon/clientes");?>" class="<?php if($contenido == "admon/clientes"){echo "active";} ?>" ><i class="fa fa-users fa-fw"></i> Usuarios</a>
+	                            <a href="<?php echo site_url("admon/clientes");?>" class="" ><i class="fa fa-users fa-fw"></i> Usuarios</a>
 	                        </li>
 	                        <li>
 	                            <a href="#"><i class="fa fa-line-chart fa-fw"></i> Estadisticas</a>
