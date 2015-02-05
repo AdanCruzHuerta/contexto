@@ -257,10 +257,13 @@
 	                            </div>
 	                        </li>
 	                        <li>
-	                            <a href="" class="<?php if($contenido == 'administrador/inicio') echo 'active';?>" ><i class="fa fa-book fa-fw"></i> Notas <span class="fa arrow"></span></a>
+	                            <a href="" class="<?php if($contenido == 'administrador/inicio' || $contenido == 'administrador/notas') echo 'active';?>" ><i class="fa fa-book fa-fw"></i> Notas <span class="fa arrow"></span></a>
 	                        	<ul class="nav nav-second-level">
+	                        		<li href="#">
+	                            		<a href="<?php echo site_url('administrador/panel');?>">Crear notas</a>
+	                            	</li>
 	                            	<li href="#">
-	                            		<a href="javascript:;">Consultar</a>
+	                            		<a href="<?php echo site_url('administrador/notas');?>">Consultar</a>
 	                            	</li>
 	                            </ul>
 	                        </li>
@@ -276,10 +279,13 @@
 	                            </ul>
 	                        </li>
 	                        <li>
-	                            <a href="<?php echo site_url("admon/clientes");?>" class="" ><i class="fa fa-users fa-fw"></i> Usuarios</a>
+	                            <a href="<?php echo site_url('administrador/tareas')?>" class="<?php if($contenido == 'administrador/tareas') echo 'active';?>"><i class="fa fa-thumb-tack"></i> Tareas</a>
 	                        </li>
 	                        <li>
-	                            <a href="#"><i class="fa fa-line-chart fa-fw"></i> Estadisticas</a>
+	                            <a href="<?php echo site_url('administrador/usuarios')?>" class="<?php if($contenido == 'administrador/usuarios') echo 'active';?>" ><i class="fa fa-users fa-fw"></i> Usuarios</a>
+	                        </li>
+	                        <li>
+	                            <a href="<?php echo site_url('administrador/estadisticas')?>" class="<?php if($contenido == 'administrador/estadisticas') echo 'active';?>"><i class="fa fa-line-chart fa-fw"></i> Estadisticas</a>
 	                        </li>
 	                    </ul>
 	                </div>

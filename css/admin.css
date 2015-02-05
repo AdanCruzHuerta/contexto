@@ -454,6 +454,9 @@ table.dataTable thead .sorting:after {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+.secciones a{
+    text-decoration: none !important;
+}
 .liga-nota{
     margin-top: 20px;
     display: none;

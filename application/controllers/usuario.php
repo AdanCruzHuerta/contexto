@@ -1,13 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Administrador extends CI_Controller {
+class Usuario extends CI_Controller {
 
 	private $sesion;
 	private $usuario;
 
 	public function __construct() {
        parent::__construct();
-
+       
        $this->load->model('usuario_model');
        
        $this->sesion = $this->session->userdata('rol');
@@ -15,28 +15,11 @@ class Administrador extends CI_Controller {
        $this->usuario = $this->session->userdata('id');
    }
 
-	public function panel()
-	{
-		if($this->sesion == 1):
+   public function index()
+   {
+ 		if($this->sesion == 1):
 
-			$data['contenido'] = 'administrador/inicio';
-
-			$data['administrador'] = $this->usuario_model->all($this->usuario);
-
-			$this->load->view('templates/layoutAdministrador', $data);
-
-		else:
-
-			redirect('login');
-
-		endif;
-		
-	}
-	public function estadisticas()
-	{
-		if($this->sesion == 1):
-
-			$data['contenido'] = 'administrador/estadisticas';
+			$data['contenido'] = 'administrador/usuarios';
 
 			$data['administrador'] = $this->usuario_model->all($this->usuario);
 
@@ -47,5 +30,36 @@ class Administrador extends CI_Controller {
 			redirect('login');
 
 		endif;
-	}
+   }
+
+   public function create()
+   {
+ 		//
+   }
+
+   public function store()
+   {
+ 		//
+   }
+
+   public function show()
+   {
+ 		//
+   }
+
+   public function edit()
+   {
+ 		//
+   }
+
+   public function update()
+   {
+ 		//
+   }
+
+   public function delete()
+   {
+ 		//
+   }
+
 }
