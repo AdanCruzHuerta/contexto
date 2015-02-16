@@ -9,6 +9,8 @@ class Nota extends CI_Controller {
        parent::__construct();
 
        $this->load->model('usuario_model');
+
+       $this->load->model('nota_model');;
        
        $this->sesion = $this->session->userdata('rol');
        
@@ -24,6 +26,8 @@ class Nota extends CI_Controller {
 
 			$data['administrador'] = $this->usuario_model->all($this->usuario);
 
+      $data['notas'] = $this->nota_model->all();
+
 			$this->load->view('templates/layoutAdministrador', $data);
 
 		else:
@@ -35,7 +39,35 @@ class Nota extends CI_Controller {
 
    public function create()
    {
- 		//
+
+    if($this->sesion == 1):
+ 	  
+      if( $this->input->get() ):
+
+        $data['get'] = $this->input->get();
+
+       if(isset($_FILES[0])):
+
+          echo json_encode($_FILES[0]);
+          echo json_encode($data['get']);
+        
+        else:
+        
+          echo json_encode(false);
+        
+        endif;
+      
+      else:
+
+        echo json_encode("No llega por get");
+
+      endif;
+
+    else:
+
+      redirect('login');
+
+    endif;
    }
 
    public function store()
@@ -43,14 +75,14 @@ class Nota extends CI_Controller {
  		//
    }
 
-   public function show()
+   public function show($id)
    {
- 		//
+ 		  echo "La nota que buscas es: ".$id;
    }
 
-   public function edit()
+   public function edit($id)
    {
- 		//
+ 	    echo "La nota a editar es: ".$id;
    }
 
    public function update()
@@ -58,9 +90,9 @@ class Nota extends CI_Controller {
  		//
    }
 
-   public function delete()
-   {
- 		//
+   public function delete($id)
+   {  
+ 		   echo "La nota a borrar es: ". $id;
    }
 
 }

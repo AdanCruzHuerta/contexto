@@ -13,11 +13,13 @@ class Administrador extends CI_Controller {
        $this->sesion = $this->session->userdata('rol');
        
        $this->usuario = $this->session->userdata('id');
+
+       $this->status= $this->session->userdata('status');
    }
 
 	public function panel()
 	{
-		if($this->sesion == 1):
+		if($this->sesion == 1 && $this->status == 1 ):
 
 			$data['contenido'] = 'administrador/inicio';
 

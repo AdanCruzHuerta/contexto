@@ -37,6 +37,8 @@ class Login extends CI_Controller {
 
 				$this->session->set_userdata("rol", $usuario->roles_usuario_id);
 
+				$this->session->set_userdata("status",$usuario->status);
+
 				if($this->session->userdata('rol') == '1')				//ADMINISTRADOR
 
 					redirect('administrador/panel');
@@ -62,9 +64,12 @@ class Login extends CI_Controller {
 
 	public function logout()
 	{
+
 		$this->session->sess_destroy();
 
-		redirect('login');
+		$this->removeCache();
+
+		redirect('administrador');
 	}
 
 }

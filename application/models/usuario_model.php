@@ -22,15 +22,23 @@ class Usuario_model extends CI_Model{
 
 						->select('usuarios.foto_usuario')
 
+						->select('usuarios.status')
+
+						->select('usuarios.id')
+
 						->select('personas.nombre')
 
-						->select('personas.apellido_p')
-
-						->select('personas.apellido_m')
+						->select('personas.apellidos')
 
 						->select('personas.telefono')
 
+						->select('personas.direccion')
+
 						->select('roles_usuario.nombre as rol')
+
+						->select('roles_usuario.id as rol2')
+
+						->where('usuarios_id',$id)
 
 						->from('usuarios')
 
@@ -41,5 +49,38 @@ class Usuario_model extends CI_Model{
 						->get()
 
 						->row();
+	}
+
+	public function addusuario($email,$password,$rol,$imagen,$status)
+	{
+		$this->db->set('email',$email)
+				 ->set('password',$password)
+				 ->set('roles_usuario_id',$rol)
+				 ->set('foto_usuario',$imagen)
+				 ->set('status',$status)
+				 ->insert('usuarios');
+		return $this->db->insert_id();
+	}
+
+	public function cambiastatus($status,$id)
+	{
+		$this->db->set('status',$status)
+				 ->where('id',$id)
+				 ->update('usuarios');
+	}
+
+	public function modiusuario($id,$rol,$url)
+	{
+		$this->db->set('roles_usuario_id',$rol)
+				 ->set('foto_usuario',$url)
+				 ->where('id',$id)
+				 ->update('usuarios');
+	}
+
+	public function cambiaperfil($email,$id)
+	{
+		$this->db->set('email',$email)
+				 ->where('id',$id)
+				 ->update('usuarios');
 	}
 }

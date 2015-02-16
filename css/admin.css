@@ -461,6 +461,26 @@ table.dataTable thead .sorting:after {
     margin-top: 20px;
     display: none;
 }
+.galeria-nota{
+    margin-top: 20px;
+    display: none;
+}
+.imagen-nota{
+    margin-top: 20px;
+}
 .btn-nota{
     margin-top: 20px;
+    margin-bottom: 30px;
+}
+.btn-imagen{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+.error{
+    color: #A94442;
+}
+#contenido_textarea, #secciones_check{
+    display: none;
+    font-weight: bold;
 }

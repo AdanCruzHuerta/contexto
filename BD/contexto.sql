@@ -80,6 +80,7 @@ CREATE TABLE `notas` (
   `status` int(11) NOT NULL DEFAULT '1' COMMENT 'Aqui va el estatus de la nota\n0 - borrada\n1- activa\n',
   `fecha` datetime NOT NULL,
   `personas_id` int(11) NOT NULL,
+  `tipo_nota` int(11) NOT NULL COMMENT 'Tipos de notas\n1 - comun\n2 - columna\n3 - galeria\n4 - video',
   PRIMARY KEY (`id`),
   KEY `fk_notas_personas1_idx` (`personas_id`),
   CONSTRAINT `fk_notas_personas1` FOREIGN KEY (`personas_id`) REFERENCES `personas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -93,33 +94,6 @@ CREATE TABLE `notas` (
 LOCK TABLES `notas` WRITE;
 /*!40000 ALTER TABLE `notas` DISABLE KEYS */;
 /*!40000 ALTER TABLE `notas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `notas_has_tipo_notas`
---
-
-DROP TABLE IF EXISTS `notas_has_tipo_notas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `notas_has_tipo_notas` (
-  `notas_id` int(11) NOT NULL,
-  `tipo_notas_id` int(11) NOT NULL,
-  PRIMARY KEY (`notas_id`,`tipo_notas_id`),
-  KEY `fk_notas_has_tipo_notas_tipo_notas1_idx` (`tipo_notas_id`),
-  KEY `fk_notas_has_tipo_notas_notas1_idx` (`notas_id`),
-  CONSTRAINT `fk_notas_has_tipo_notas_notas1` FOREIGN KEY (`notas_id`) REFERENCES `notas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_notas_has_tipo_notas_tipo_notas1` FOREIGN KEY (`tipo_notas_id`) REFERENCES `tipo_notas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `notas_has_tipo_notas`
---
-
-LOCK TABLES `notas_has_tipo_notas` WRITE;
-/*!40000 ALTER TABLE `notas_has_tipo_notas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `notas_has_tipo_notas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -308,29 +282,6 @@ LOCK TABLES `tareas_has_personas` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tipo_notas`
---
-
-DROP TABLE IF EXISTS `tipo_notas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tipo_notas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Existen 3 tipos de notas\n- video\n- galeria\n- normal\n';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tipo_notas`
---
-
-LOCK TABLES `tipo_notas` WRITE;
-/*!40000 ALTER TABLE `tipo_notas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tipo_notas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `usuarios`
 --
 
@@ -368,4 +319,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-02 23:32:05
+-- Dump completed on 2015-02-04 21:15:08

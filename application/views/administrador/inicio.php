@@ -7,207 +7,253 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-		<div class="form-group">
-		    <label for="ejemplo_email_1">Nombre</label>
-		    <input type="email" class="form-control" id="ejemplo_email_1" placeholder="Introduce el nombre de la nota">
-	  	</div>
-		<textarea></textarea>
-		<div class="form-group liga-nota">
-		    <label for="ejemplo_email_1">Url</label>
-		    <input type="email" class="form-control" id="ejemplo_email_1" placeholder="Introduce la url del video">
-	  	</div>
-	  	<input type="button" class="btn btn-primary pull-right btn-nota" value="Crear nota">
-	</div>
-	<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-		<div class="panel panel-default">
-
-			<div class="panel-heading">
-		    	<h3 class="panel-title">
-		    		<center>Tipo de nota</center>
-		    	</h3>
+	<form id="form-addNota" method="post">
+		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9"> 
+			<div class="form-group">
+			    <label for="nombre">Nombre</label>
+			    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduce el nombre de la nota">
 		  	</div>
 
-		  	<div class="panel-body">
-		  		<div>
-				  	<label>
-				   		<input type="radio" name="tipo_nota" value="1" checked /> 
-				    	Común
-				  	</label>
-				</div>
-	  			<div>
-				  	<label>
-				   		<input type="radio" name="tipo_nota" value="2" />
-				    	Columna
-				  	</label>
-				</div>
-				<div>
-				  	<label>
-				   		<input type="radio" name="tipo_nota" value="3" />
-				    	Video
-				  	</label>
-				</div>
-				<div>
-				  	<label>
-				   		<input type="radio" name="tipo_nota" value="4" />
-				    	Galería
-				  	</label>
-				</div>
+			<textarea id="contenido" name="contenido"></textarea>
+			<span id="contenido_textarea" class="error">Este campo es obligatorio</span>
+
+			<div class="form-group liga-nota">
+			    <label for="">Url</label>
+			    <input type="email" class="form-control" id="url_video" name="url_video" placeholder="Introduce la url del video">
 		  	</div>
-		  	<div class="panel-heading">
-		    	<h3 class="panel-title">
-		    		<center>Secciones</center>
-		    	</h3>
-		  	</div>
-		  	<div class="panel-body">
-  				<div>
-				  	<label>
-				   		<input type="checkbox" name="tipo_nota" value="">
-				    	Primera plana
-				  	</label>
-				</div>
-		  		<h4 class="panel-title secciones secciones">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseUno" aria-expanded="false" aria-controls="collapseOne">
-						<i class="fa fa-chevron-right"></i></i> Estado
-					</a>
-				</h4>
-				<div id="collapseUno" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-					<div class="panel-body">
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Gobierno
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Seguridad
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Educación
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Salud
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Economia
-						  	</label>
-						</div>
+
+			<div class="imagen-nota">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="form-group ">
+					        <ol class="breadcrumb breadcrumb-arrow">
+								<li class="active"><span><i class="fa fa-picture-o"></i> Seleccionar Imagen</span></li>
+							</ol> 
+							<input type="file" class="file" name="imgNota" id="imagen">
+					    </div>		
 					</div>
 				</div>
-				<h4 class="panel-title secciones">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseDos" aria-expanded="false" aria-controls="collapseOne">
-						<i class="fa fa-chevron-right"></i></i> Municipio
-					</a>
-				</h4>
-				<div id="collapseDos" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-					<div class="panel-body">
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Colima
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Manzanillo
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Villa de Álvarez
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Tecoman
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Aremeria
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Zona norte
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Entidades
-						  	</label>
-						</div>
+			</div>
+
+			<div class="galeria-nota">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="form-group ">
+							<ol class="breadcrumb breadcrumb-arrow">
+								<li class="active"><span><i class="fa fa-picture-o"></i> Seleccionar Imagenes</span></li>
+							</ol>
+							<input type="file" class="file" name="galeria" id="galeria">
+					    </div>		
 					</div>
 				</div>
-				<h4 class="panel-title secciones">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseTres" aria-expanded="false" aria-controls="collapseOne">
-						<i class="fa fa-chevron-right"></i></i> Sociedad
-					</a>
-				</h4>
-				<div id="collapseTres" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-					<div class="panel-body">
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Cultura
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Sociales
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Medio ambiente
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Urbes
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Migrantes
-						  	</label>
-						</div>
-						<div>
-						  	<label>
-						   		<input type="checkbox" name="tipo_nota" value="">
-						    	Agro
-						  	</label>
-						</div>
-					</div>
-				</div>
-		  	</div>
+			</div> 
+
+		  	<input type="submit" class="btn btn-primary pull-right btn-nota" value="Crear nota">
 		</div>
-	</div>
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+			<div class="panel panel-default">
+
+				<div class="panel-heading">
+			    	<h3 class="panel-title">
+			    		<center>Tipo de nota</center>
+			    	</h3>
+			  	</div>
+
+			  	<div class="panel-body">
+			  		<div>
+					  	<label>
+					   		<input type="radio" name="tipo_nota" value="1" checked /> 
+					    	Común
+					  	</label>
+					</div>
+		  			<div>
+					  	<label>
+					   		<input type="radio" name="tipo_nota" value="2" />
+					    	Columna
+					  	</label>
+					</div>
+					<div>
+					  	<label>
+					   		<input type="radio" name="tipo_nota" value="3" />
+					    	Video
+					  	</label>
+					</div>
+					<div>
+					  	<label>
+					   		<input type="radio" name="tipo_nota" value="4" />
+					    	Galería
+					  	</label>
+					</div>
+			  	</div>
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">
+			    		<center>Secciones</center>
+			    	</h3>
+			  	</div>
+			  	<center><span id="secciones_check" class="error">Selecciona una opción</span></center>
+			  	<div class="panel-body">
+	  				<div>
+					  	<label>
+					   		<input type="checkbox" name="secciones_id[]" value="1">
+					    	Primera plana
+					  	</label>
+					</div>
+			  		<h4 class="panel-title secciones secciones">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseUno" aria-expanded="false" aria-controls="collapseOne">
+							<i class="fa fa-chevron-right"></i></i> Estado
+						</a>
+					</h4>
+					<div id="collapseUno" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="2">
+							    	Gobierno
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="3">
+							    	Seguridad
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="4">
+							    	Educación
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="5">
+							    	Salud
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="6">
+							    	Economia
+							  	</label>
+							</div>
+						</div>
+					</div>
+					<h4 class="panel-title secciones">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseDos" aria-expanded="false" aria-controls="collapseOne">
+							<i class="fa fa-chevron-right"></i></i> Municipio
+						</a>
+					</h4>
+					<div id="collapseDos" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="7">
+							    	Colima
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="8">
+							    	Manzanillo
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="9">
+							    	Villa de Álvarez
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="10">
+							    	Tecoman
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="11">
+							    	Armeria
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="12">
+							    	Zona norte
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="13">
+							    	Entidades
+							  	</label>
+							</div>
+						</div>
+					</div>
+					<h4 class="panel-title secciones">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseTres" aria-expanded="false" aria-controls="collapseOne">
+							<i class="fa fa-chevron-right"></i></i> Sociedad
+						</a>
+					</h4>
+					<div id="collapseTres" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+						<div class="panel-body">
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id" value="14">
+							    	Cultura
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id" value="15">
+							    	Sociales
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id" value="16">
+							    	Medio ambiente
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id" value="17">
+							    	Urbes
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id" value="18">
+							    	Migrantes
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id" value="19">
+							    	Agro
+							  	</label>
+							</div>
+						</div>
+					</div>
+			  	</div>
+			</div>
+		</div>
+	</form>
 </div>
+<script type="text/javascript" src="js/fileinput.min.js"></script>
+<script type="text/javascript" src="js/summernote.min.js"></script>
+<script type="text/javascript" src="js/validate.js"></script>
+<script type="text/javascript" src="js/messages_es.js"></script>
 <script>
 	
+	var file = [];
+	var acceptedTypes = {
+			'image/jpg':true,
+			'image/png': true,
+			'image/jpeg': true
+	};	
+	var imagen;
+
 	$(function(){
+
 		$('textarea').summernote({
 			height: 200,
 			toolbar: [
@@ -227,15 +273,98 @@
 	  	});
 
 	  	$('input:radio').on('ifChecked', function(event){
-		  	if($(this).val() == 3){
-		  		$('.liga-nota').fadeIn();;
+		  	if($(this).val() == 2){
+		  		$('.liga-nota').hide();
+		  		$('.galeria-nota').hide();
+		  		$('.imagen-nota').hide();
+		  	}else if($(this).val() == 3){
+		  		$('.liga-nota').fadeIn();
+		  		$('.galeria-nota').hide();
+		  		$('.imagen-nota').hide();
 		  		return false;		
+		  	}else if($(this).val() == 4){
+	  			$('.galeria-nota').fadeIn();
+		  		$('.liga-nota').hide();
+		  		$('.imagen-nota').hide();
+	  			return false;
 		  	}else{
-		  		$('.liga-nota').fadeOut();
+		  		$('.liga-nota').hide();
+		  		$('.galeria-nota').hide();
+		  		$('.imagen-nota').fadeIn();
 		  		return false;	
 		  	}
 		});
 
+        var nuevaNota = $('#form-addNota').validate({
+        	errorElement: "span",
+        	errroClass: "help-block",
+        	rules: {
+        		nombre:{required:true}
+        	},
+        	highlight: function(element, error) {
+				$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+			},
+			success: function(element) {
+				$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+			},
+			submitHandler: function() {
+				
+				var HTML = $('#contenido').code();
+				
+				if( HTML == "" || HTML == "<p><br></p>" ){
+					$('#contenido_textarea').show();
+					return false;
+				}
+
+				var cheks = $('input[type="checkbox"]:checked').length - 1 ;
+				
+				if( cheks == 0){
+					$("#secciones_check").show();
+					return false;
+				}
+
+				var formulario = $("#form-addNota").serialize();
+				imagen = new FormData();
+				$.each(file, function(key, value)
+				{
+					imagen.append(key, value);
+				});
+
+				$.ajax({
+					type: "POST",
+					url: "<?php echo site_url('administrador/notas/crear'); ?>?"+ formulario,
+					cache: false,
+					processData: false,
+					contentType: false,
+					data: imagen,
+					success: function(result){
+						var datos = $.parseJSON(result);
+						//console.log(datos);
+						$('#form-addNota').each(function(){
+						 	this.reset();
+						});
+						 $('#contenido').code('');
+						return false;
+					}
+				});
+
+			}
+
+        });
+
+	});
+
+	//FUNCIÓN PARA DARLE ESTILO AL INPUT 
+	$('#imagen').fileinput({
+		'showUpload':false,
+		'showRemove':false,
+		'showPreview':true,
+		'mainClass':"",
+		'browseLabel':"Seleccionar imagen"
+	});
+
+	$(document).on('change','#imagen',function(e){
+		file = e.target.files;
 	});
 
 </script>
