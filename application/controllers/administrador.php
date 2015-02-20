@@ -9,12 +9,12 @@ class Administrador extends CI_Controller {
        parent::__construct();
 
        $this->load->model('usuario_model');
-       
+
        $this->sesion = $this->session->userdata('rol');
-       
+
        $this->usuario = $this->session->userdata('id');
 
-       $this->status= $this->session->userdata('status');
+       $this->status = $this->session->userdata('status');
    }
 
 	public function panel()
@@ -25,6 +25,10 @@ class Administrador extends CI_Controller {
 
 			$data['administrador'] = $this->usuario_model->all($this->usuario);
 
+			$data['editores'] = $this->usuario_model->get_usuarios_editores(2); 	// editores
+
+			$data['reporteros'] = $this->usuario_model->get_usuarios_reporteros(3);	//reporteros
+
 			$this->load->view('templates/layoutAdministrador', $data);
 
 		else:
@@ -32,7 +36,7 @@ class Administrador extends CI_Controller {
 			redirect('login');
 
 		endif;
-		
+
 	}
 	public function estadisticas()
 	{

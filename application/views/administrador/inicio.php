@@ -8,7 +8,11 @@
 </div>
 <div class="row">
 	<form id="form-addNota" method="post">
-		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9"> 
+		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+
+			<div id="alerta">
+			</div>
+
 			<div class="form-group">
 			    <label for="nombre">Nombre</label>
 			    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduce el nombre de la nota">
@@ -19,7 +23,7 @@
 
 			<div class="form-group liga-nota">
 			    <label for="">Url</label>
-			    <input type="email" class="form-control" id="url_video" name="url_video" placeholder="Introduce la url del video">
+			    <input type="text" class="form-control" id="url_video" name="url_video" placeholder="Introduce la url del video">
 		  	</div>
 
 			<div class="imagen-nota">
@@ -28,9 +32,9 @@
 						<div class="form-group ">
 					        <ol class="breadcrumb breadcrumb-arrow">
 								<li class="active"><span><i class="fa fa-picture-o"></i> Seleccionar Imagen</span></li>
-							</ol> 
+							</ol>
 							<input type="file" class="file" name="imgNota" id="imagen">
-					    </div>		
+					    </div>
 					</div>
 				</div>
 			</div>
@@ -43,15 +47,66 @@
 								<li class="active"><span><i class="fa fa-picture-o"></i> Seleccionar Imagenes</span></li>
 							</ol>
 							<input type="file" class="file" name="galeria" id="galeria">
-					    </div>		
+					    </div>
 					</div>
 				</div>
-			</div> 
+			</div>
 
 		  	<input type="submit" class="btn btn-primary pull-right btn-nota" value="Crear nota">
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
 			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<center>Autor</center>
+					</h3>
+				</div>
+				<div class="panel-body">
+
+					<div>
+					  	<label>
+					   		<input type="radio" name="autor" value="redaccion" checked>
+					    	Redacción
+					  	</label>
+					</div>
+
+					<h4 class="panel-title secciones secciones">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseAutorUno" aria-expanded="false" aria-controls="collapseOne">
+							<i class="fa fa-chevron-right"></i></i> Editores
+						</a>
+					</h4>
+					<?php if(count($editores) == 0){} else{?>
+						<div id="collapseAutorUno" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+							<div class="panel-body">
+								<?php foreach($editores as $editor) {?>
+								<label>
+									<input type="radio" name="autor" value="user-<?php echo $editor->id?>">
+									<?php echo $editor->nombre." ".$editor->apellidos?>
+								</label>
+								<?php }?>
+							</div>
+						</div>
+					<?php } ?>
+
+					<h4 class="panel-title secciones secciones">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseAutorDos" aria-expanded="false" aria-controls="collapseOne">
+							<i class="fa fa-chevron-right"></i></i> Reporteros
+						</a>
+					</h4>
+
+					<?php if (count($reporteros) == 0){} else{?>
+						<div id="collapseAutorDos" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+							<div class="panel-body">
+								<?php foreach($reporteros as $reportero) {?>
+								<label>
+									<input type="radio" name="autor" value="user-<?php echo $reportero->id?>">
+									<?php echo $reportero->nombre." ".$reportero->apellidos;?>
+								</label>
+								<?php }?>
+							</div>
+						</div>
+					<?php }?>
+				</div>
 
 				<div class="panel-heading">
 			    	<h3 class="panel-title">
@@ -62,7 +117,7 @@
 			  	<div class="panel-body">
 			  		<div>
 					  	<label>
-					   		<input type="radio" name="tipo_nota" value="1" checked /> 
+					   		<input type="radio" name="tipo_nota" value="1" checked />
 					    	Común
 					  	</label>
 					</div>
@@ -85,11 +140,13 @@
 					  	</label>
 					</div>
 			  	</div>
+
 			  	<div class="panel-heading">
 			    	<h3 class="panel-title">
 			    		<center>Secciones</center>
 			    	</h3>
 			  	</div>
+
 			  	<center><span id="secciones_check" class="error">Selecciona una opción</span></center>
 			  	<div class="panel-body">
 	  				<div>
@@ -98,13 +155,21 @@
 					    	Primera plana
 					  	</label>
 					</div>
+
 			  		<h4 class="panel-title secciones secciones">
 						<a data-toggle="collapse" data-parent="#accordion" href="#collapseUno" aria-expanded="false" aria-controls="collapseOne">
 							<i class="fa fa-chevron-right"></i></i> Estado
 						</a>
 					</h4>
+
 					<div id="collapseUno" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 						<div class="panel-body">
+							<div>
+							  	<label>
+							   		<input type="checkbox" name="secciones_id[]" value="20">
+							    	Elecciones 2015
+							  	</label>
+							</div>
 							<div>
 							  	<label>
 							   		<input type="checkbox" name="secciones_id[]" value="2">
@@ -137,11 +202,13 @@
 							</div>
 						</div>
 					</div>
+
 					<h4 class="panel-title secciones">
 						<a data-toggle="collapse" data-parent="#accordion" href="#collapseDos" aria-expanded="false" aria-controls="collapseOne">
 							<i class="fa fa-chevron-right"></i></i> Municipio
 						</a>
 					</h4>
+
 					<div id="collapseDos" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 						<div class="panel-body">
 							<div>
@@ -188,11 +255,13 @@
 							</div>
 						</div>
 					</div>
+
 					<h4 class="panel-title secciones">
 						<a data-toggle="collapse" data-parent="#accordion" href="#collapseTres" aria-expanded="false" aria-controls="collapseOne">
 							<i class="fa fa-chevron-right"></i></i> Sociedad
 						</a>
 					</h4>
+
 					<div id="collapseTres" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 						<div class="panel-body">
 							<div>
@@ -233,23 +302,24 @@
 							</div>
 						</div>
 					</div>
-			  	</div>
+				</div>
 			</div>
 		</div>
 	</form>
 </div>
+
 <script type="text/javascript" src="js/fileinput.min.js"></script>
 <script type="text/javascript" src="js/summernote.min.js"></script>
 <script type="text/javascript" src="js/validate.js"></script>
 <script type="text/javascript" src="js/messages_es.js"></script>
 <script>
-	
+
 	var file = [];
 	var acceptedTypes = {
 			'image/jpg':true,
 			'image/png': true,
 			'image/jpeg': true
-	};	
+	};
 	var imagen;
 
 	$(function(){
@@ -281,7 +351,7 @@
 		  		$('.liga-nota').fadeIn();
 		  		$('.galeria-nota').hide();
 		  		$('.imagen-nota').hide();
-		  		return false;		
+		  		return false;
 		  	}else if($(this).val() == 4){
 	  			$('.galeria-nota').fadeIn();
 		  		$('.liga-nota').hide();
@@ -291,7 +361,7 @@
 		  		$('.liga-nota').hide();
 		  		$('.galeria-nota').hide();
 		  		$('.imagen-nota').fadeIn();
-		  		return false;	
+		  		return false;
 		  	}
 		});
 
@@ -299,7 +369,8 @@
         	errorElement: "span",
         	errroClass: "help-block",
         	rules: {
-        		nombre:{required:true}
+        		nombre:{required:true},
+        		imgNota:{required:true},
         	},
         	highlight: function(element, error) {
 				$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -308,16 +379,16 @@
 				$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
 			},
 			submitHandler: function() {
-				
+
 				var HTML = $('#contenido').code();
-				
+
 				if( HTML == "" || HTML == "<p><br></p>" ){
 					$('#contenido_textarea').show();
 					return false;
 				}
 
 				var cheks = $('input[type="checkbox"]:checked').length - 1 ;
-				
+
 				if( cheks == 0){
 					$("#secciones_check").show();
 					return false;
@@ -339,22 +410,23 @@
 					data: imagen,
 					success: function(result){
 						var datos = $.parseJSON(result);
-						//console.log(datos);
-						$('#form-addNota').each(function(){
-						 	this.reset();
-						});
-						 $('#contenido').code('');
-						return false;
+						//limpiar campos de formulario
+						$('#nombre').val('');
+						$('#imagen').fileinput('reset');
+						$('#contenido').code('');
+						
+						if(datos.resp){
+							$('#alerta').html('<div class="alert alert-success animated bounceIn" role="alert"><i class="fa fa-check"></i> '+datos.mensaje+'</div>');
+						}else{
+							$('#alerta').html('<div class="alert alert-warning animated bounceIn" role="alert"><i class="fa fa-times">'+datos.mensaje+'</i></div>');
+						}
 					}
 				});
-
 			}
-
         });
-
 	});
 
-	//FUNCIÓN PARA DARLE ESTILO AL INPUT 
+	//FUNCIÓN PARA DARLE ESTILO AL INPUT
 	$('#imagen').fileinput({
 		'showUpload':false,
 		'showRemove':false,

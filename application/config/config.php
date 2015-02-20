@@ -90,7 +90,7 @@ $config['csrf_expire'] = 7200;
 
 $config['compress_output'] = FALSE;
 
-$config['time_reference'] = 'local';
+$config['time_reference'] = 'America/Mexico_City';
 
 $config['rewrite_short_tags'] = FALSE;
 

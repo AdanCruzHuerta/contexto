@@ -224,7 +224,7 @@
 	                    </a>
 	                    <ul class="dropdown-menu dropdown-user">
 	                        <li>
-	                        	<a href="<?php echo site_url('Usuario/perfilusua');?>">
+	                        	<a href="<?php echo site_url('usuario/perfilusua');?>">
 	                        		<div class="text-nav">
 	                        			<i class="fa fa-user fa-fw"></i> <span>Perfil de Usuario</span>
 	                        		</div>

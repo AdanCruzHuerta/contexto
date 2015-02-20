@@ -170,12 +170,10 @@ class Usuario extends CI_Controller {
 
    public function perfilusua()
    {
-     
-     if($this->sesion == 1):
-       
-      $data['administrador'] = $this->usuario_model->all($this->usuario);
-      $data['contenido'] = 'administrador/perfilusuario';
-      $this->load->view('templates/layoutAdministrador',$data);    
+      if($this->sesion == 1):
+        $data['administrador'] = $this->usuario_model->all($this->usuario);
+        $data['contenido'] = 'administrador/perfilusuario';
+        $this->load->view('templates/layoutAdministrador',$data);    
       else:
 
       endif;

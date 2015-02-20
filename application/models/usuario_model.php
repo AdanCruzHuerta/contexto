@@ -19,35 +19,20 @@ class Usuario_model extends CI_Model{
 	public function all($id)
 	{
 		return $this->db->select('usuarios.email')
-
 						->select('usuarios.foto_usuario')
-
 						->select('usuarios.status')
-
 						->select('usuarios.id')
-
 						->select('personas.nombre')
-
 						->select('personas.apellidos')
-
 						->select('personas.telefono')
-
 						->select('personas.direccion')
-
 						->select('roles_usuario.nombre as rol')
-
 						->select('roles_usuario.id as rol2')
-
 						->where('usuarios_id',$id)
-
 						->from('usuarios')
-
 						->join('personas','usuarios.id = personas.usuarios_id')
-
 						->join('roles_usuario','usuarios.roles_usuario_id = roles_usuario.id')
-
 						->get()
-
 						->row();
 	}
 
@@ -82,5 +67,35 @@ class Usuario_model extends CI_Model{
 		$this->db->set('email',$email)
 				 ->where('id',$id)
 				 ->update('usuarios');
+	}
+
+	public function get_usuarios_editores($id_rol)
+	{
+		return $this->db->select('usuarios.id')
+				 ->select('usuarios.roles_usuario_id')
+				 ->select('personas.nombre')
+				 ->select('personas.apellidos')
+				 ->select('roles_usuario.nombre as rol')
+				 ->from('usuarios')
+				 ->join('personas','usuarios.id = personas.usuarios_id')
+				 ->join('roles_usuario','usuarios.roles_usuario_id = roles_usuario.id')
+				 ->where('roles_usuario.id', $id_rol)
+				 ->get()
+				 ->result();
+	}
+
+	public function get_usuarios_reporteros($id_rol)
+	{
+		return $this->db->select('usuarios.id')
+				 ->select('usuarios.roles_usuario_id')
+				 ->select('personas.nombre')
+				 ->select('personas.apellidos')
+				 ->select('roles_usuario.nombre as rol')
+				 ->from('usuarios')
+				 ->join('personas','usuarios.id = personas.usuarios_id')
+				 ->join('roles_usuario','usuarios.roles_usuario_id = roles_usuario.id')
+				 ->where('roles_usuario.id', $id_rol)
+				 ->get()
+				 ->result();
 	}
 }
