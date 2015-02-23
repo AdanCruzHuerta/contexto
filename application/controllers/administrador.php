@@ -33,7 +33,7 @@ class Administrador extends CI_Controller {
 
 		else:
 
-			redirect('login');
+			redirect('administrador');
 
 		endif;
 
@@ -50,7 +50,7 @@ class Administrador extends CI_Controller {
 
 		else:
 
-			redirect('login');
+			redirect('administrador');
 
 		endif;
 	}

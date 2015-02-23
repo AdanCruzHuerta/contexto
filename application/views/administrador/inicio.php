@@ -78,10 +78,10 @@
 					<?php if(count($editores) == 0){} else{?>
 						<div id="collapseAutorUno" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 							<div class="panel-body">
-								<?php foreach($editores as $editor) {?>
+								<?php foreach($editores as $editor) { $apellido = explode(" ", $editor->apellidos)?>
 								<label>
 									<input type="radio" name="autor" value="user-<?php echo $editor->id?>">
-									<?php echo $editor->nombre." ".$editor->apellidos?>
+									<?php echo $editor->nombre." ".$apellido[0]?>
 								</label>
 								<?php }?>
 							</div>
@@ -97,10 +97,10 @@
 					<?php if (count($reporteros) == 0){} else{?>
 						<div id="collapseAutorDos" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 							<div class="panel-body">
-								<?php foreach($reporteros as $reportero) {?>
+								<?php foreach($reporteros as $reportero){ $apellido = explode(" ", $reportero->apellidos)?>
 								<label>
 									<input type="radio" name="autor" value="user-<?php echo $reportero->id?>">
-									<?php echo $reportero->nombre." ".$reportero->apellidos;?>
+									<?php echo $reportero->nombre." ".$apellido[0];?>
 								</label>
 								<?php }?>
 							</div>

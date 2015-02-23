@@ -5,12 +5,11 @@ class Notificacion_model extends CI_Model{
 		parent::__contruct();
 	}
 
-	public function crearNotificacion($nota_id,$tipo,$status,$tipo_usuario)
+	public function crearNotificacion($nota_id,$tipo,$status)
 	{
 		return $this->db->set('notas_id',$nota_id)
 						->set('tipo',$tipo)
 						->set('status',$status)
-						->set('tipo_usuario',$tipo_usuario)
 						->insert('notificaciones');
 	}
 

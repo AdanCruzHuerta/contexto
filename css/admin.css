@@ -487,3 +487,6 @@ table.dataTable thead .sorting:after {
     display: none;
     font-weight: bold;
 }
+.panel-body label{
+    font-size: 13px;
+}

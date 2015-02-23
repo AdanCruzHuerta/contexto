@@ -67,8 +67,6 @@ class Login extends CI_Controller {
 
 		$this->session->sess_destroy();
 
-		$this->removeCache();
-
 		redirect('administrador');
 	}
 

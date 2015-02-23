@@ -24,11 +24,11 @@ class Nota_model extends CI_Model{
 						->result();
 	}
 
-	public function crearNota($nombre,$status,$fecha,$contenido,$tipo_nota,$imagen_nota,$url_video,$redaccion)
+	public function crearNota($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,$redaccion)
 	{
 		$this->db->set('nombre',$nombre)
-				->set('status',$status) 
-				->set('fecha',$fecha)
+				->set('status',1) 
+				->set('fecha',date("Y/m/d"))
 				->set('contenido',$contenido)
 				->set('tipo_nota',$tipo_nota)
 				->set('imagen_nota',$imagen_nota)
@@ -46,11 +46,11 @@ class Nota_model extends CI_Model{
 						->insert('secciones_has_notas');
 	}
 
-	public function personas_has_notas($persona,$nota_id)
+	public function personas_has_notas($persona,$nota_id,$tipo)
 	{
 		return $this->db->set('personas_id',$persona)
 						->set('notas_id',$nota_id)
-						->set('tipo',2) //captura la nota
+						->set('tipo',$tipo) //tipo de persona_nota
 						->insert('personas_has_notas');
 	}
 }
