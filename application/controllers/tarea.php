@@ -27,7 +27,7 @@ class Tarea extends CI_Controller {
 
 		else:
 
-			redirect('login');
+			redirect('administrador');
 
 		endif;
    }

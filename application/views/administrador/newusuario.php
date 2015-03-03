@@ -3,72 +3,73 @@
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<h2><i class="fa fa-users fa-fw"></i> Usuarios</h2>
 		<ol class="breadcrumb breadcrumb-arrow">
-			<li  class="active"><span><i class="fa fa-users fa-fw"></i> <a href="<?php echo site_url('usuario'); ?>">Usuarios</a> / Registrar Usuario</span></li>
+			<li  class="active"><span><i class="fa fa-users fa-fw"></i><a href="<?php echo site_url('administrador/usuarios'); ?>">Usuarios</a> / Registrar Usuario</span></li>
 		</ol>
 	</div>
 </div>
-
-<div class="well">
-	<legend>Registrar nuevo Usuario</legend>
-
 <div class="row">
-	<!-- FORMULARIO -->
-	<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-		<div id="alerta"></div>
-		<form id="form-addusuario">
-		<div class="form-group col-xs-12 col-sm-12 col-md-9 col-lg-6" >
-		    <label for="nombre">Nombre</label>
-		    <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Introduce el nombre">
-	  	</div>
-		<div class="form-group col-xs-12 col-sm-12 col-md-9 col-lg-6">
-		    <label for="apellidos">Apellidos</label>
-		    <input name="apellidos" type="text" class="form-control" id="apellidos" placeholder="Introduce los apellidos">
-	  	</div>
-	  	<div class="form-group col-xs-12 col-sm-12 col-md-9 col-lg-6">
-		    <label for="tel">Teléfono</label>
-		    <input name="tel" type="text" class="form-control" id="tel" placeholder="Introduce el teléfono">
-	  	</div>
-	  	<div class="form-group col-xs-12 col-sm-12 col-md-9 col-lg-6">
-		    <label for="email">Email</label>
-		    <input name="email" type="email" class="form-control" id="email" placeholder="Introduce el email">
-	  	</div>
-	  	<div class="form-group col-xs-12 col-sm-12 col-md-9 col-lg-12">
-				<label for="imagen"><spam class="glyphicon glyphicon-asterisk requerido"></spam>Seleccionar Archivo:</label>
-				<input type="file" class="file" name="userfile" id="imagen">
-	  	</div>
-	</div>
-
-	<!-- BARRA LATERAL PARA QUE SELECCIONE EL TIPO DE USUARIO -->
-	<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<div class="panel panel-default">
-
-			<div class="panel-heading">
-		    	<h3 class="panel-title">
-		    		<center>Tipo de Usuario</center>
-		    	</h3>
-		  	</div>
-
-		  	<div class="panel-body">
-	  			<div>
-				  	<label>
-				   		<input type="radio" name="rol" value="2" checked/>
-				    	Editor
-				  	</label>
+			<div class="panel-body">
+				<!-- FORMULARIO -->
+				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+					<div id="alerta"></div>
+					<form id="form-addusuario">
+					<div class="form-group col-xs-12 col-sm-12 col-md-9 col-lg-6" >
+					    <label for="nombre">Nombre</label>
+					    <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Introduce el nombre">
+				  	</div>
+					<div class="form-group col-xs-12 col-sm-12 col-md-9 col-lg-6">
+					    <label for="apellidos">Apellidos</label>
+					    <input name="apellidos" type="text" class="form-control" id="apellidos" placeholder="Introduce los apellidos">
+				  	</div>
+				  	<div class="form-group col-xs-12 col-sm-12 col-md-9 col-lg-6">
+					    <label for="tel">Teléfono</label>
+					    <input name="tel" type="text" class="form-control" id="tel" placeholder="Introduce el teléfono">
+				  	</div>
+				  	<div class="form-group col-xs-12 col-sm-12 col-md-9 col-lg-6">
+					    <label for="email">Email</label>
+					    <input name="email" type="email" class="form-control" id="email" placeholder="Introduce el email">
+				  	</div>
+				  	<div class="form-group col-xs-12 col-sm-12 col-md-9 col-lg-12">
+							<label for="imagen"><spam class="glyphicon glyphicon-asterisk requerido"></spam>Seleccionar Archivo:</label>
+							<input type="file" class="file" name="userfile" id="imagen">
+				  	</div>
 				</div>
-				<div>
-				  	<label>
-				   		<input type="radio" name="rol" value="3" />
-				    	Reportero
-				  	</label>
+				<!-- BARRA LATERAL PARA QUE SELECCIONE EL TIPO DE USUARIO -->
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+					<div class="panel panel-default">
+
+						<div class="panel-heading">
+					    	<h3 class="panel-title">
+					    		<center>Tipo de Usuario</center>
+					    	</h3>
+					  	</div>
+
+					  	<div class="panel-body">
+				  			<div>
+							  	<label>
+							   		<input type="radio" name="rol" value="2" checked/>
+							    	Editor
+							  	</label>
+							</div>
+							<div>
+							  	<label>
+							   		<input type="radio" name="rol" value="3" />
+							    	Reportero
+							  	</label>
+							</div>
+					  	</div>	  
+					</div>
+					<input type="hidden" name="rol2" id="rol" value="2" >
+					<input type="submit" class="btn btn-primary pull-right btn-nota btn-block" value="Guardar Usuario">
+					</form>
 				</div>
-		  	</div>	  
+			</div>
 		</div>
-		<input type="hidden" name="rol2" id="rol" value="2" >
-		<input type="submit" class="btn btn-primary pull-right btn-nota" value="Guardar Usuario">
-		</form>
 	</div>
 </div>
-</div>
+
 <script type="text/javascript" src="js/fileinput.min.js"></script>
 <script type="text/javascript" src="js/summernote.min.js"></script>
 <script type="text/javascript" src="js/validate.js"></script>

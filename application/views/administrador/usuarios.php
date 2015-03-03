@@ -1,11 +1,11 @@
+<link rel="stylesheet" href="css/dataTables.bootstrap.css">
+<script src="js/dataTables.min.js"></script>
+<script src="js/dataTables.bootstrap.js"></script>
 <script type="text/javascript">
 		
 		$(document).ready(function(){
-			$('#allusuario').dataTable({
-				'language':{
-					'url': 'media/data_es.txt'
-				}
-			});
+			
+			$('#allusuario').dataTable({});
 
 			$('#click-status').click(function(){
 				var id =  $('#valor-usuario').val();
@@ -24,6 +24,8 @@
 						}
 					})	
 				});	
+
+				$('.mitooltip').tooltip();
 		});
 		
 
@@ -53,8 +55,6 @@
 
 </script>
 
-</script>
-
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<h2><i class="fa fa-users fa-fw"></i> Usuarios</h2>
@@ -66,51 +66,46 @@
 
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		<form method="post" action="<?php echo site_url('usuario/newusuario'); ?>">
-		<button type="submit" class="btn btn-primary pull-right fa fa-user" style="margin-bottom:10px;"></button>
-		</form>
+		<a href="<?php echo site_url('administrador/usuarios/crear')?>" class="btn btn-primary pull-right mitooltip" title="Nuevo" data-placement="bottom"><i class="fa fa-user"></i></a>
 	</div>
-</div>
+</div><br>
 
 <div class="row">
-	
 	<div class="col-xs-12 col-sm-12 col-md12 col-lg-12">
-		<div class="well">
-			<legend>Usuarios Registrados</legend>
-		<table class="table" id="allusuario">
-			<thead>
-				<tr>
-					<th>Nombre</th>
-					<th>Email</th>
-					<th>Tipo de usuario</th>
-					<th>Accion</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ($personas as $per) {
-					?>
-					<?php if ($per->status == 1): ?>
-						<tr style="background-color:#DFF0D8;">
-					<?php else: ?>
-						<tr style="background-color:#F2DEDE;">
-					<?php endif ;?>
-					<td><?php echo $per->nombre.' '.$per->apellidos;?></td>
-					<td><?php echo $per->email;?></td>
-					<td><?php echo $per->rol;?></td>
-						<td align="center">
-							<button onClick="editardatos(this.id)" id="<?php echo $per->id; ?>" type="submit" class="btn btn-primary  fa fa-pencil"></button>
-
-							<?php if($per->status == 1): ?>
-								<button onClick="editar(this.id)" type="submit" class="btn btn-primary  fa fa-times" data-toggle="modal" data-target="#modal-borrar-usuario" id="<?php echo $per->id; ?>"></button>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<table class="table" id="allusuario">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Email</th>
+							<th>Tipo de usuario</th>
+							<th>Accion</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($personas as $per) { ?>
+							<?php if ($per->status == 1): ?>
+								<tr style="background-color:#DFF0D8;">
 							<?php else: ?>
-								<button onClick="editar(this.id)" type="submit" class="btn btn-primary  fa fa-check" data-toggle="modal" data-target="#modal-borrar-usuario" id="<?php echo $per->id; ?>"></button>
-							<?php endif; ?>
-						</td>
-				</tr>
-				<?php 
-				} ?>
-			</tbody>
-		</table>
+								<tr style="background-color:#F2DEDE;">
+							<?php endif ;?>
+							<td><?php echo $per->nombre.' '.$per->apellidos;?></td>
+							<td><?php echo $per->email;?></td>
+							<td><?php echo $per->rol;?></td>
+							<td align="center">
+								<button onClick="editardatos(this.id)" id="<?php echo $per->id; ?>" type="submit" class="btn btn-primary  fa fa-pencil"></button>
+								<?php if($per->status == 1): ?>
+									<button onClick="editar(this.id)" type="submit" class="btn btn-primary  fa fa-times" data-toggle="modal" data-target="#modal-borrar-usuario" id="<?php echo $per->id; ?>"></button>
+								<?php else: ?>
+									<button onClick="editar(this.id)" type="submit" class="btn btn-primary  fa fa-check" data-toggle="modal" data-target="#modal-borrar-usuario" id="<?php echo $per->id; ?>"></button>
+								<?php endif; ?>
+							</td>
+						</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			</div>
 	</div>	
 </div>
 </div>

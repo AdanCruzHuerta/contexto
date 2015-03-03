@@ -33,7 +33,7 @@ class Usuario extends CI_Controller {
 
 		else:
 
-			redirect('login');
+			redirect('administrador');
 
 		endif;
    }
@@ -48,7 +48,7 @@ class Usuario extends CI_Controller {
  		$this->load->view('templates/layoutAdministrador',$data);
     else:
 
-      redirect('login');
+      redirect('administrador');
 
     endif;
    }
@@ -87,7 +87,7 @@ class Usuario extends CI_Controller {
                                         'mensaje' => "se registro con exito el usuario" )); 
     else:
 
-      redirect('login');
+      redirect('administrador');
 
     endif;
    }
@@ -101,7 +101,7 @@ class Usuario extends CI_Controller {
     $data['contenido'] = 'administrador/alterusuario';
     $this->load->view('templates/layoutAdministrador',$data);
     else:
-      redirect('login');
+      redirect('administrador');
     endif;
    }
 
@@ -127,7 +127,7 @@ class Usuario extends CI_Controller {
      echo json_encode($respuesta = array('resp' => true,
                                         'mensaje' => "se modifico con exito el usuario" ));  
     else:
-      redirect('login');
+      redirect('administrador');
     endif;
    }
 

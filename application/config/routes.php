@@ -18,7 +18,7 @@ $route['administrador'] = 'login/index';
 /*
 |-----------------------------------------------------------
 |		Rutas de Notas
-|-----------------------------------------------------------	
+|-----------------------------------------------------------
 */
 
 $route['administrador/notas'] = 'nota/index';
@@ -35,8 +35,21 @@ $route['administrador/notas/borrar/(:num)'] = 'nota/delete/$1';
 
 /*
 |-----------------------------------------------------------
+|		Rutas de Columnas
+|-----------------------------------------------------------
+*/
+
+$route['administrador/columnas'] = 'columna/index';
+
+$route['administrador/columnas/guardar'] = 'columna/store';
+
+$route['administrador/columnas/actualizar'] = 'columna/update';
+
+
+/*
+|-----------------------------------------------------------
 |		Rutas de Tareas
-|-----------------------------------------------------------	
+|-----------------------------------------------------------
 */
 
 $route['administrador/tareas'] = 'tarea/index';
@@ -44,7 +57,9 @@ $route['administrador/tareas'] = 'tarea/index';
 /*
 |-----------------------------------------------------------
 |		Rutas de Usuarios
-|-----------------------------------------------------------	
+|-----------------------------------------------------------
 */
 
 $route['administrador/usuarios'] = 'usuario/index';
+
+$route['administrador/usuarios/crear'] = 'usuario/newusuario';

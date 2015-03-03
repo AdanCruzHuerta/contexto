@@ -24,7 +24,7 @@ class Nota extends CI_Controller {
       $data['notas'] = $this->nota_model->all();
 			$this->load->view('templates/layoutAdministrador', $data);
 		else:
-			redirect('login');
+			redirect('administrador');
 		endif;
    }
  
@@ -126,7 +126,7 @@ class Nota extends CI_Controller {
 
     else:
 
-      redirect('login');
+      redirect('administrador');
 
     endif;
    }

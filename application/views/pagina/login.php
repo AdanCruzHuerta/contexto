@@ -37,7 +37,7 @@
 				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xs-offset-0 col-sm-offset-3 col-md-offset-4 col-lg-offset-4">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3 class="panel-title">Iniciar Sesión</h3>
+							<h3 class="panel-title"><center>Contexto Colima</center></h3>
 						</div>
 						<div class="panel-body">
 							<?php if($error): ?>
@@ -59,7 +59,7 @@
 									<input type="password" class="form-control" placeholder="Password" name="password" required/>
 								</div>
 
-								<input type="submit" class="btn btn-primary btn-block"/>
+								<input type="submit" class="btn btn-primary btn-block" value="Iniciar sesión" />
 
 							</form>
 

@@ -55,7 +55,7 @@ class Login extends CI_Controller {
 
 			$this->session->set_flashdata('error', true);
 
-			redirect('login');
+			redirect('administrador');
 
 		endif;
 

@@ -3,7 +3,7 @@
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<h2><i class="fa fa-users fa-fw"></i> Usuarios</h2>
 		<ol class="breadcrumb breadcrumb-arrow">
-			<li  class="active"><span><i class="fa fa-users fa-fw"></i> <a href="<?php echo site_url('usuario'); ?>">Usuarios</a> / Usuarios</span></li>
+			<li  class="active"><span><i class="fa fa-users fa-fw"></i> <a href="<?php echo site_url('administrador/usuarios'); ?>">Usuarios</a> / Usuarios</span></li>
 		</ol>
 	</div>
 </div>

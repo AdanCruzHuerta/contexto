@@ -118,25 +118,25 @@
 			  		<div>
 					  	<label>
 					   		<input type="radio" name="tipo_nota" value="1" checked />
-					    	Común
+					    	<i class="fa fa-book"></i> Común
 					  	</label>
 					</div>
 		  			<div>
 					  	<label>
 					   		<input type="radio" name="tipo_nota" value="2" />
-					    	Columna
+					    	<i class="fa fa-file-text-o"></i> Columna
 					  	</label>
 					</div>
 					<div>
 					  	<label>
 					   		<input type="radio" name="tipo_nota" value="3" />
-					    	Video
+					    <i class="fa fa-film"></i> Video
 					  	</label>
 					</div>
 					<div>
 					  	<label>
 					   		<input type="radio" name="tipo_nota" value="4" />
-					    	Galería
+					    	<i class="fa fa-picture-o"></i> Galería
 					  	</label>
 					</div>
 			  	</div>
