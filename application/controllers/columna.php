@@ -5,7 +5,8 @@ class Columna extends CI_Controller {
 	private $sesion;
 	private $usuario;
 
-	public function __construct() {
+	public function __construct() 
+  {
        parent::__construct();
 
         $this->sesion = $this->session->userdata('rol');
@@ -13,7 +14,7 @@ class Columna extends CI_Controller {
        	$this->load->model('columna_model');
         $this->load->model('usuario_model');
         $this->load->model('persona_model');
-   }
+  }
 
    public function index()
    {
@@ -24,11 +25,11 @@ class Columna extends CI_Controller {
           echo json_encode($this->columna_model->all());
 
         }else{
-          $data['contenido'] = 'administrador/columnas';
-          $data['administrador'] = $this->usuario_model->all($this->usuario);
-          $data['columnas'] = $this->columna_model->all();
+            $data['contenido'] = 'administrador/columnas';
+            $data['administrador'] = $this->usuario_model->all($this->usuario);
+            $data['columnas'] = $this->columna_model->all();
 
-          $this->load->view('templates/layoutAdministrador',$data);
+            $this->load->view('templates/layoutAdministrador',$data);
         }
     	}
     	else{
@@ -112,4 +113,27 @@ class Columna extends CI_Controller {
       }
    }
 
+   public function activar()
+   {
+      if($this->sesion == 1){
+        if($this->input->post()) {
+            $this->columna_model->activar_columna($this->input->post('id_columna'));
+            redirect('columna');
+        }
+      }else{
+        echo json_encode(array('resp'=>false,'mensaje'=>'Su sesión ha terminado, inicie sesión nuevamente'));
+      }
+   }
+
+   public function borrar()
+   {
+      if($this->sesion == 1){ 
+          if($this->input->post()){
+            $this->columna_model->borrar_columna($this->input->post('id_columna'));
+            redirect('columna');
+          }
+      }else{
+        redirect_to('administrador');
+      }
+   }
 }

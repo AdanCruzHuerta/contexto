@@ -1,3 +1,8 @@
+<style type="text/css">
+	.file-preview-frame{
+		width: 98% !important;
+	}
+</style>
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<h2><i class="fa fa-book fa-fw"></i> Notas</h2>
@@ -12,18 +17,29 @@
 
 			<div id="alerta">
 			</div>
+			<div class="nombre-nota">
+				<div class="form-group">
+			    	<label for="nombre">Nombre</label>
+			    	<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduce el nombre de la nota">
+		  		</div>	
+			</div>
 
-			<div class="form-group">
-			    <label for="nombre">Nombre</label>
-			    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduce el nombre de la nota">
-		  	</div>
+		  	<div class="columna-nota">
+		  		<label for="columna">Nombre</label>
+		  		<select class="form-control columna" name="columna" id="columna">
+		  			<option value="">Selecciona una columna</option>
+		  			<?php foreach($columnas as $columna) { ?>
+		  			<option value="<?php echo $columna->id."-".$columna->nombre;?>"><?php echo $columna->nombre;?></option>
+		  			<?php } ?>
+		  		</select>
+		  	</div><br>
 
 			<textarea id="contenido" name="contenido"></textarea>
 			<span id="contenido_textarea" class="error">Este campo es obligatorio</span>
 
 			<div class="form-group liga-nota">
-			    <label for="">Url</label>
-			    <input type="text" class="form-control" id="url_video" name="url_video" placeholder="Introduce la url del video">
+			    <label for="">Frame</label>
+			    <textarea class="form-control" id="url_video" name="url_video" placeholder="Introduce el frame del video"></textarea>
 		  	</div>
 
 			<div class="imagen-nota">
@@ -324,7 +340,7 @@
 
 	$(function(){
 
-		$('textarea').summernote({
+		$('#contenido').summernote({
 			height: 200,
 			toolbar: [
 				['style', ['bold', 'italic', 'underline', 'clear']],
@@ -344,20 +360,28 @@
 
 	  	$('input:radio').on('ifChecked', function(event){
 		  	if($(this).val() == 2){
+		  		$('.nombre-nota').hide();
+		  		$('.columna-nota').fadeIn();
 		  		$('.liga-nota').hide();
 		  		$('.galeria-nota').hide();
 		  		$('.imagen-nota').hide();
 		  	}else if($(this).val() == 3){
+		  		$('.nombre-nota').fadeIn();
+		  		$('.columna-nota').hide();
 		  		$('.liga-nota').fadeIn();
 		  		$('.galeria-nota').hide();
 		  		$('.imagen-nota').hide();
 		  		return false;
 		  	}else if($(this).val() == 4){
+		  		$('.nombre-nota').fadeIn();
+		  		$('.columna-nota').hide();
 	  			$('.galeria-nota').fadeIn();
 		  		$('.liga-nota').hide();
 		  		$('.imagen-nota').hide();
 	  			return false;
-		  	}else{
+		  	}else if($(this).val() == 1){
+		  		$('.nombre-nota').fadeIn();
+		  		$('.columna-nota').hide();
 		  		$('.liga-nota').hide();
 		  		$('.galeria-nota').hide();
 		  		$('.imagen-nota').fadeIn();
@@ -371,6 +395,8 @@
         	rules: {
         		nombre:{required:true},
         		imgNota:{required:true},
+        		columna:{required:true},
+        		url_video:{required:true},
         	},
         	highlight: function(element, error) {
 				$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -414,9 +440,12 @@
 						$('#nombre').val('');
 						$('#imagen').fileinput('reset');
 						$('#contenido').code('');
+						$('#columna').prop('selectedIndex',0);
 						
 						if(datos.resp){
 							$('#alerta').html('<div class="alert alert-success animated bounceIn" role="alert"><i class="fa fa-check"></i> '+datos.mensaje+'</div>');
+							$('#alerta').fadeOut(4000);
+							return false;
 						}else{
 							$('#alerta').html('<div class="alert alert-warning animated bounceIn" role="alert"><i class="fa fa-times">'+datos.mensaje+'</i></div>');
 						}

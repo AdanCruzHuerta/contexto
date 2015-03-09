@@ -490,3 +490,12 @@ table.dataTable thead .sorting:after {
 .panel-body label{
     font-size: 13px;
 }
+.activado{
+    background-color:#DFF0D8;
+}
+.desactivado{
+    background-color:#F2DEDE;
+}
+.columna-nota{
+    display: none;
+}

@@ -21,7 +21,7 @@ td a{margin-left: 5px !important;}
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<table class='table table-hover'>
+				<table class='table'>
 					<thead>
 						<tr>
 							<th><center>Nombre</center></th>
@@ -31,12 +31,12 @@ td a{margin-left: 5px !important;}
 					</thead>
 					<tbody>
 						<?php foreach($columnas as $columna) { ?>
-						<tr>
+						<tr <?php if($columna->estatus) echo " class='activado' ";else echo "class='desactivado'";?>>
 							<td><center><?php echo $columna->nombre?></center></td>
 							<td><center><?php echo $columna->fecha?></center></td>
 							<td><center>
 								<a href="javascript:;" data-id="<?php echo $columna->id?>" data-nombre="<?php echo $columna->nombre?>" data-imagen="<?php echo $columna->imagen_columna?>" title="Editar" class="btn btn-primary editar-columna"><i class="fa fa-pencil"></i></a>
-								<a href="javascript:;" class="btn btn-primary" data-id="<?php echo $columna->id?>" data-nombre="<?php echo $columna->nombre?>" title="Borrar"><i class="fa fa-times"></i></a>
+								<a href="javascript:;" class="btn btn-primary <?php if($columna->estatus) echo "borrar-columna"; else echo "activar-columna";?> " data-id="<?php echo $columna->id?>" title="<?php if($columna->estatus) echo 'Borrar'; else echo 'Activar'; ?>" data-nombre="<?php echo $columna->nombre?>"><?php if($columna->estatus) echo "<i class='fa fa-times'></i> ";else echo "<i class='fa fa-check'></i>";?></a>
 							</center></td>
 						</tr>
 						<?php } ?>
@@ -52,7 +52,7 @@ td a{margin-left: 5px !important;}
   	<div class="modal-dialog">
     	<div class="modal-content">
       		<div class="modal-header">
-        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<button id="close-add" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         		<h4 class="modal-title" id="myModalLabel">Nueva Columna</h4>
       		</div>
       		<form id="form-addcolumna">
@@ -67,7 +67,7 @@ td a{margin-left: 5px !important;}
 							<center><input type="file" class="file" name="imgColumna" id="imagen"></center>
 						</div>
 	      		</div>
-	      		<div class="modal-footer">
+	      		<div id="add-buttons" class="modal-footer">
 	        		<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 	        		<button type="submit" class="btn btn-primary">Guardar</button>
 	      		</div>
@@ -81,7 +81,7 @@ td a{margin-left: 5px !important;}
   	<div class="modal-dialog">
     	<div class="modal-content">
       		<div class="modal-header">
-        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<button id="close-editar" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         		<h4 class="modal-title" id="myModalLabel">Editar Columna</h4>
       		</div>
       		<form id="form-editar-columna">
@@ -98,7 +98,7 @@ td a{margin-left: 5px !important;}
 							<center><input type="file" class="file" name="imgColumna" id="editar-imagen"></center>
 						</div>
 	      		</div>
-	      		<div class="modal-footer">
+	      		<div id="editar-buttons" class="modal-footer">
 	        		<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 	        		<button type="submit" class="btn btn-primary">Guardar</button>
 	      		</div>
@@ -109,23 +109,48 @@ td a{margin-left: 5px !important;}
 
 <!-- Modal borrar columna-->
 <div class="modal fade" id="borrar-columna" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  	<div class="modal-dialog">
+  	<div class="modal-dialog modal-sm">
     	<div class="modal-content">
       		<div class="modal-header">
-        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<button id="close-borrar" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         		<h4 class="modal-title" id="myModalLabel">Borrar Columna</h4>
       		</div>
-      		<form id="">
+      		<form action="<?php echo site_url('administrador/columnas/borrar')?>" method="post">
 	      		<div class="modal-body">
 	      			<div id="alerta"></div>
-					<div class="form-group" >
-					    <label for="nombre">Nombre</label>
-					    <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre de columna">
-				  	</div>
+					<div>
+					   <center>¿Realmente desea borrar la columna <strong><span id="nombre-columna-delete"></span></strong>?</center>
+					   <input type="hidden" id="id_columna_delete" name="id_columna">
+					</div>
 	      		</div>
-	      		<div class="modal-footer">
+	      		<div id="borrar-buttons" class="modal-footer">
 	        		<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-	        		<button type="submit" class="btn btn-primary">Guardar</button>
+	        		<button type="submit" id="confirma-delete" class="btn btn-primary">Borrar <i class="fa fa-check-circle"></i></button>
+	      		</div>
+      		</form>
+    	</div>
+  	</div>
+</div>
+
+<!-- Modal activar columna-->
+<div class="modal fade" id="activar-columna" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  	<div class="modal-dialog modal-sm">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button id="close-activar" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<h4 class="modal-title" id="myModalLabel">Activar Columna</h4>
+      		</div>
+      		<form action="<?php echo site_url('administrador/columnas/activar')?>" method="post">
+	      		<div class="modal-body">
+	      			<div id="alerta"></div>
+					<div>
+					   <center>¿Realmente desea activar la columna <strong><span id="nombre-columna-activar"></span></strong>?</center>
+					   <input type="hidden" id="id_columna_activar" name="id_columna">
+					</div>
+	      		</div>
+	      		<div id="borrar-buttons" class="modal-footer">
+	        		<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+	        		<button type="submit" id="confirma-activar" class="btn btn-primary">Activar <i class="fa fa-check-circle"></i></button>
 	      		</div>
       		</form>
     	</div>
@@ -161,6 +186,32 @@ td a{margin-left: 5px !important;}
 			$('#editar-columna').modal({
 				backdrop: 'static',
 			  	keyboard: false,
+			});
+		});
+
+		$('.borrar-columna').click(function(){
+			var id = $(this).attr('data-id');
+			var nombre = $(this).attr('data-nombre');
+
+			$('#nombre-columna-delete').html(nombre);
+			$('#id_columna_delete').val(id);
+
+			$('#borrar-columna').modal({
+				backdrop: 'static',
+				keyboard: false,
+			});
+		});
+
+		$('.activar-columna').click(function(){
+			var id = $(this).attr('data-id');
+			var nombre = $(this).attr('data-nombre');
+
+			$('#nombre-columna-activar').html(nombre);
+			$('#id_columna_activar').val(id);
+
+			$('#activar-columna').modal({
+				backdrop: 'static',
+				keyboard: false,
 			});
 		});
 
@@ -217,6 +268,9 @@ td a{margin-left: 5px !important;}
 											'<center><a href="javascript:;" data-id="'+datos2[i]["id"]+'" title="Editar" class="btn btn-primary" data-toggle="modal" data-target="#editar-columna"><i class="fa fa-pencil"></i></a><a href="javascript:;" data-id="'+datos2[i]["id"]+'" title="Borrar" class="btn btn-primary" data-toggle="modal" data-target="#borrar-columna"><i class="fa fa-times"></i></a></center>'
 										]).draw();
 									}
+
+									$('#close-add').hide();
+									$('#add-buttons').html('<a href="<?php echo site_url("administrador/columnas")?>" class="btn btn-primary">Cerrar <i class="fa fa-check-circle"></i></a>');
 								}
 							});
 						}else{
@@ -262,22 +316,10 @@ td a{margin-left: 5px !important;}
 						var datos = $.parseJSON(result);
 						if(datos.resp){
 
-							$('#editar-nombre').val('');
-							$('#editar-id').val('');
-							$('#editar-imagen').fileinput('reset');
-
 							$('#alerta-editar').html('<div class="alert alert-success animated bounceIn" role="alert"><i class="fa fa-check"></i>'+datos.mensaje+'</i></div>');
 
-							$('.table').DataTable().clear().draw();
-							for(var i=0; i<datos.columnas.length;i++){
-								$('.table').DataTable().row.add([
-									'<center>'+datos.columnas[i]["nombre"]+'</center>',
-									'<center>'+datos.columnas[i]["fecha"]+'</center>',
-									'<center><a href="javascript:;" data-id="'+datos.columnas[i]["id"]+'" title="Editar" class="btn btn-primary" data-toggle="modal" data-target="#editar-columna"><i class="fa fa-pencil"></i></a><a href="javascript:;" data-id="'+datos.columnas[i]["id"]+'" title="Borrar" class="btn btn-primary" data-toggle="modal" data-target="#borrar-columna"><i class="fa fa-times"></i></a></center>'
-								]).draw();
-							}
-
-
+							$('#close-editar').hide();
+							$('#editar-buttons').html('<a href="<?php echo site_url("administrador/columnas")?>" class="btn btn-primary">Cerrar <i class="fa fa-check-circle"></i></a>');
 						}else{
 							$('#alerta-editar').html('<div class="alert alert-warning animated bounceIn" role="alert"><i class="fa fa-times">'+datos.mensaje+'</i></div>');
 						}

@@ -45,6 +45,10 @@ $route['administrador/columnas/guardar'] = 'columna/store';
 
 $route['administrador/columnas/actualizar'] = 'columna/update';
 
+$route['administrador/columnas/borrar'] = 'columna/borrar';
+
+$route['administrador/columnas/activar'] = 'columna/activar';
+
 
 /*
 |-----------------------------------------------------------
