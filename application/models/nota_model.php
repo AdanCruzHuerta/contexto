@@ -37,7 +37,7 @@ class Nota_model extends CI_Model{
 				->insert('notas');
 		return $this->db->insert_id();
 	}
-	public function crearNotaComun($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,$redaccion,$columna_id)
+	public function crearNotaColumna($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,$redaccion,$columna_id)
 	{
 		$this->db->set('nombre',$nombre)
 				 ->set('status',1)

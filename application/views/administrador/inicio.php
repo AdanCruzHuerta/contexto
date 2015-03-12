@@ -34,39 +34,36 @@
 		  		</select>
 		  	</div><br>
 
-			<textarea id="contenido" name="contenido"></textarea>
+			<textarea id="contenido" name="contenido"></textarea><br>
 			<span id="contenido_textarea" class="error">Este campo es obligatorio</span>
 
-			<div class="form-group liga-nota">
-			    <label for="">Frame</label>
-			    <textarea class="form-control" id="url_video" name="url_video" placeholder="Introduce el frame del video"></textarea>
-		  	</div>
+			<div class="galerias-notas">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<a id="crear-galeria" class="btn btn-primary pull-right mitooltip" title="Nueva" data-placement="bottom" ><i class="fa fa-picture-o"></i></a>
+					</div>
+				</div>
+				<label for="columna">Galería</label>
+				<select  class="form-control" name="galerias_id" id="galerias_id">
+					<option value="">Selecciona una galería</option>
+				</select>
+			</div><br>
 
 			<div class="imagen-nota">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<div class="form-group ">
-					        <ol class="breadcrumb breadcrumb-arrow">
-								<li class="active"><span><i class="fa fa-picture-o"></i> Seleccionar Imagen</span></li>
-							</ol>
+					       <label>Imagen</label>
 							<input type="file" class="file" name="imgNota" id="imagen">
 					    </div>
 					</div>
 				</div>
 			</div>
 
-			<div class="galeria-nota">
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<div class="form-group ">
-							<ol class="breadcrumb breadcrumb-arrow">
-								<li class="active"><span><i class="fa fa-picture-o"></i> Seleccionar Imagenes</span></li>
-							</ol>
-							<input type="file" class="file" name="galeria" id="galeria">
-					    </div>
-					</div>
-				</div>
-			</div>
+			<div class="form-group liga-nota">
+			    <label for="">Frame</label>
+			    <textarea class="form-control" id="url_video" name="url_video" placeholder="Introduce el frame del video"></textarea>
+		  	</div>
 
 		  	<input type="submit" class="btn btn-primary pull-right btn-nota" value="Crear nota">
 		</div>
@@ -322,6 +319,32 @@
 			</div>
 		</div>
 	</form>
+
+	<!-- Modal nueva galeria-->
+	<div class="modal fade bs-example-modal-lg" id="nueva-galeria" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog modal-lg">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button id="close-add" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        		<h4 class="modal-title" id="myModalLabel">Nueva Galería</h4>
+	      		</div>
+	      		<form id="form-addgaleria">
+		      		<div class="modal-body">
+		      			<div id="alerta"></div>
+		      			<label>Nombre:</label>
+		      			<input type="text" class="form-control" placeholder="Escribe el nombre de la galería"/><br>
+
+		      			<label>Imagenes:</label>
+		      			<input type="file" class="file" name="imgGaleria" id="imagen-galeria" multiple="true" data-show-upload="false" data-show-caption="true">
+		      		</div>
+		      		<div id="add-buttons" class="modal-footer">
+		        		<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+		        		<button type="submit" class="btn btn-primary">Guardar</button>
+		      		</div>
+	      		</form>
+	    	</div>
+	  	</div>
+	</div>
 </div>
 
 <script type="text/javascript" src="js/fileinput.min.js"></script>
@@ -331,12 +354,15 @@
 <script>
 
 	var file = [];
+	var files = [];
 	var acceptedTypes = {
 			'image/jpg':true,
 			'image/png': true,
 			'image/jpeg': true
 	};
 	var imagen;
+	var secciones = 0;
+	var imagenesGaleria;
 
 	$(function(){
 
@@ -363,28 +389,28 @@
 		  		$('.nombre-nota').hide();
 		  		$('.columna-nota').fadeIn();
 		  		$('.liga-nota').hide();
-		  		$('.galeria-nota').hide();
 		  		$('.imagen-nota').hide();
+		  		$('.galerias-notas').hide();
 		  	}else if($(this).val() == 3){
 		  		$('.nombre-nota').fadeIn();
 		  		$('.columna-nota').hide();
 		  		$('.liga-nota').fadeIn();
-		  		$('.galeria-nota').hide();
-		  		$('.imagen-nota').hide();
+		  		$('.imagen-nota').fadeIn();
+		  		$('.galerias-notas').hide();
 		  		return false;
 		  	}else if($(this).val() == 4){
 		  		$('.nombre-nota').fadeIn();
 		  		$('.columna-nota').hide();
-	  			$('.galeria-nota').fadeIn();
 		  		$('.liga-nota').hide();
 		  		$('.imagen-nota').hide();
+		  		$('.galerias-notas').fadeIn();
 	  			return false;
 		  	}else if($(this).val() == 1){
 		  		$('.nombre-nota').fadeIn();
 		  		$('.columna-nota').hide();
 		  		$('.liga-nota').hide();
-		  		$('.galeria-nota').hide();
 		  		$('.imagen-nota').fadeIn();
+		  		$('.galerias-notas').hide();
 		  		return false;
 		  	}
 		});
@@ -441,8 +467,10 @@
 						$('#imagen').fileinput('reset');
 						$('#contenido').code('');
 						$('#columna').prop('selectedIndex',0);
+						$('#url_video').val('');
 						
 						if(datos.resp){
+							$('#alerta').css("display", "block");
 							$('#alerta').html('<div class="alert alert-success animated bounceIn" role="alert"><i class="fa fa-check"></i> '+datos.mensaje+'</div>');
 							$('#alerta').fadeOut(4000);
 							return false;
@@ -453,6 +481,15 @@
 				});
 			}
         });
+
+		$('.mitooltip').tooltip();
+
+		$('#crear-galeria').click(function(){
+			$('#nueva-galeria').modal({
+				backdrop: 'static',
+			  	keyboard: false,
+			});
+		});
 	});
 
 	//FUNCIÓN PARA DARLE ESTILO AL INPUT
@@ -464,8 +501,20 @@
 		'browseLabel':"Seleccionar imagen"
 	});
 
+	$('#imagen-galeria').fileinput({
+		'showUpload':false,
+		'showRemove':false,
+		'showPreview':true,
+		'mainClass':"",
+		'browseLabel':"Seleccionar imagenes"
+	});
+
 	$(document).on('change','#imagen',function(e){
 		file = e.target.files;
+	});
+
+	$(document).on('change','#imagen-galeria', function(e){
+		files = e.target.files;
 	});
 
 </script>

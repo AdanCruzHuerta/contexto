@@ -499,3 +499,7 @@ table.dataTable thead .sorting:after {
 .columna-nota{
     display: none;
 }
+
+.galerias-notas{
+    display: none;
+}
