@@ -85,9 +85,9 @@ class Nota extends CI_Controller {
             if($autor == 'redaccion'){
               /*
               |   Parametros para nueva nota columna
-              |   1.-$columna_id, 2.-$contenido, 3.-$tipo_nota, 4.-$imagen_nota, 5.-$url_video, 6.-$redaccion, 7.-$columna_id, 8.-$secciones, 9.- autor
+              |   1.-$columna_id, 2.-$contenido, 3.-$tipo_nota, 4.-$url_video, 5.-$redaccion, 6.-$columna_id, 7.- autor
               */
-              $nota = $this->nuevanota->nota_columna($contenido,$tipo_nota,$imagen_nota,$url_video,1,$columna_id,$secciones,$autor);
+              $nota = $this->nuevanota->nota_columna($contenido,$tipo_nota,$url_video,1,$columna_id,$autor);
               if($nota){
                   echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
                 }else{
@@ -96,7 +96,7 @@ class Nota extends CI_Controller {
             }else{
                 $autor = explode("-", $autor);
                 $autor = $autor[1];
-                $nota = $this->nuevanota->nota_columna($contenido,$tipo_nota,$imagen_nota,$url_video,0,$columna_id,$secciones,$autor);
+                $nota = $this->nuevanota->nota_columna($contenido,$tipo_nota,$url_video,0,$columna_id,$autor);
                 if($nota){
                   echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
                 }else{
@@ -104,69 +104,46 @@ class Nota extends CI_Controller {
                 }
             }
         }
-        else if($tipo_nota == 3)  // Nota Video
+        /*
+        | TIPO DE NOTA VIDEO
+        */
+        else if($tipo_nota == 3)
         {
-            if($_FILES)
-            {
-              if(move_uploaded_file($_FILES[0]['tmp_name'], $imagen_nota)){
-                if($autor == 'redaccion'){
-                    
-                    $nota_id = $this->nota_model->crearNota($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,1);
-                    
-                    // guardamos las secciones a la que pertenece la nota
-                    foreach($secciones as $seccion){
-                        $this->nota_model->secciones_has_nota($seccion,$nota_id);
-                    }
-
-                    // guardamos la persona que sube la nota
-                    $persona_nota_publica = $this->nota_model->personas_has_notas($this->usuario,$nota_id,2);
-                  
-                    if($persona_nota_publica){
-                        // generamos la notificacion
-                        $this->notificacion_model->crearNotificacion($nota_id,1,0); //(id_nota, tipo, status)
-                        
-                        echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
-                    }else{
-                      echo json_encode(array('resp'=>false,'mensaje'=>'Error al crear la nota'));
-                    }
-                }else{
-                  $autor = explode("-", $autor);
-                  $autor = $autor[1];
-
-                  $nota_id = $this->nota_model->crearNota($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,0);
-
-                  // guardamos las secciones a la que pertenece la nota
-                  foreach($secciones as $seccion){
-                    $this->nota_model->secciones_has_nota($seccion,$nota_id);
-                  }
-
-                  //Persona sube
-                  $persona_nota_publica = $this->nota_model->personas_has_notas($this->usuario,$nota_id,2);
-                  //Persona autor
-                  $persona_nota_autor = $this->nota_model->personas_has_notas($autor,$nota_id,1);
-
-                  if($persona_nota_publica && $persona_nota_autor){
-                    // generamos la notificacion
-                    $this->notificacion_model->crearNotificacion($nota_id,1,0);
-
-                    echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
-                  }else{
-                    echo json_encode(array('resp'=>false,'mensaje'=>'Error al crear la nota'));
-                  }
-                }
+          if(move_uploaded_file($_FILES[0]['tmp_name'], $imagen_nota))
+          {
+            if($autor == 'redaccion'){
+              /*
+              |   Parametros para nueva nota comun
+              |   1.-$nombre, 2.-$contenido, 3.-$tipo_nota, 4.-$imagen_nota, 5.-$url_video, 6.-$redaccion, 7.-$secciones, 8.-$autor
+              */
+              $nota = $this->nuevanota->nota_comun($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,1,$secciones,$autor);
+              if($nota){
+                echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
               }else{
-                echo json_encode(array('resp'=>false,'mensaje'=>'Error al cargar la imagen'));
-              }  
+                echo json_encode(array('resp'=>false, 'mensaje'=>'Error al crear la nota'));
+              }
+            }else{
+              $autor = explode("-", $autor);
+              $autor = $autor[1];
+              $nota = $this->nuevanota->nota_comun($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,0,$secciones,$autor);
+              if($nota){
+                  echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
+              }else{
+                echo json_encode(array("resp"=>false, "mensaje"=>"Error al crear la nota"));
+              }
             }
-
+          }
+          else{
+            echo json_encode(array('resp'=>false,'mensaje'=>'Error no se pudo guardar la imagen'));
+          }
         }
-        else                      // Nota Galeria
+        /*
+        | TIPO DE NOTA GALERIA
+        */
+        else                      
         {
-
-          
+          //
         }
-
-
       else:
 
         echo json_encode(array('resp'=>'false', 'mensaje'=>'Ocurrio un error'));

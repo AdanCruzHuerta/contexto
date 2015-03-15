@@ -20,7 +20,7 @@
 			<div class="nombre-nota">
 				<div class="form-group">
 			    	<label for="nombre">Nombre</label>
-			    	<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduce el nombre de la nota">
+			    	<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escribe el nombre de la nota">
 		  		</div>	
 			</div>
 
@@ -154,14 +154,16 @@
 					</div>
 			  	</div>
 
-			  	<div class="panel-heading">
+			  	<div class="panel-heading opciones_secciones">
 			    	<h3 class="panel-title">
 			    		<center>Secciones</center>
 			    	</h3>
 			  	</div>
-
-			  	<center><span id="secciones_check" class="error">Selecciona una opción</span></center>
-			  	<div class="panel-body">
+			  	<div class="opciones_secciones">
+			  		<center><span id="secciones_check" class="error">Selecciona una opción</span></center>
+			  	</div>
+			  
+			  	<div class="panel-body opciones_secciones">
 	  				<div>
 					  	<label>
 					   		<input type="checkbox" name="secciones_id[]" value="1">
@@ -361,7 +363,7 @@
 			'image/jpeg': true
 	};
 	var imagen;
-	var secciones = 0;
+	var columna = true;
 	var imagenesGaleria;
 
 	$(function(){
@@ -391,12 +393,16 @@
 		  		$('.liga-nota').hide();
 		  		$('.imagen-nota').hide();
 		  		$('.galerias-notas').hide();
+		  		$('.opciones_secciones').hide();
+		  		columna = true;
 		  	}else if($(this).val() == 3){
 		  		$('.nombre-nota').fadeIn();
 		  		$('.columna-nota').hide();
 		  		$('.liga-nota').fadeIn();
 		  		$('.imagen-nota').fadeIn();
 		  		$('.galerias-notas').hide();
+		  		$('.opciones_secciones').fadeIn();
+		  		columna = false;
 		  		return false;
 		  	}else if($(this).val() == 4){
 		  		$('.nombre-nota').fadeIn();
@@ -404,6 +410,8 @@
 		  		$('.liga-nota').hide();
 		  		$('.imagen-nota').hide();
 		  		$('.galerias-notas').fadeIn();
+		  		$('.opciones_secciones').fadeIn();
+		  		columna = false;
 	  			return false;
 		  	}else if($(this).val() == 1){
 		  		$('.nombre-nota').fadeIn();
@@ -411,6 +419,8 @@
 		  		$('.liga-nota').hide();
 		  		$('.imagen-nota').fadeIn();
 		  		$('.galerias-notas').hide();
+		  		$('.opciones_secciones').fadeIn();
+		  		columna = false;
 		  		return false;
 		  	}
 		});
@@ -439,11 +449,13 @@
 					return false;
 				}
 
-				var cheks = $('input[type="checkbox"]:checked').length - 1 ;
+				if(columna == false){
+					var cheks = $('input[type="checkbox"]:checked').length - 1 ;
 
-				if( cheks == 0){
-					$("#secciones_check").show();
-					return false;
+					if( cheks == 0){
+						$("#secciones_check").show();
+						return false;
+					}
 				}
 
 				var formulario = $("#form-addNota").serialize();
