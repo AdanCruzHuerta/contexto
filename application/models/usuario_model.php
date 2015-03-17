@@ -69,7 +69,7 @@ class Usuario_model extends CI_Model{
 				 ->update('usuarios');
 	}
 
-	public function get_usuarios_editores($id_rol)
+	public function get_usuarios_editores()
 	{
 		return $this->db->select('usuarios.id')
 				 ->select('usuarios.roles_usuario_id')
@@ -79,12 +79,13 @@ class Usuario_model extends CI_Model{
 				 ->from('usuarios')
 				 ->join('personas','usuarios.id = personas.usuarios_id')
 				 ->join('roles_usuario','usuarios.roles_usuario_id = roles_usuario.id')
-				 ->where('roles_usuario.id', $id_rol)
+				 ->where('roles_usuario.id', 1)
+				 ->or_where('roles_usuario.id', 2)
 				 ->get()
 				 ->result();
 	}
 
-	public function get_usuarios_reporteros($id_rol)
+	public function get_usuarios_reporteros()
 	{
 		return $this->db->select('usuarios.id')
 				 ->select('usuarios.roles_usuario_id')
@@ -94,7 +95,7 @@ class Usuario_model extends CI_Model{
 				 ->from('usuarios')
 				 ->join('personas','usuarios.id = personas.usuarios_id')
 				 ->join('roles_usuario','usuarios.roles_usuario_id = roles_usuario.id')
-				 ->where('roles_usuario.id', $id_rol)
+				 ->where('roles_usuario.id', 3)
 				 ->get()
 				 ->result();
 	}

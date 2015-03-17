@@ -91,10 +91,10 @@
 					<?php if(count($editores) == 0){} else{?>
 						<div id="collapseAutorUno" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 							<div class="panel-body">
-								<?php foreach($editores as $editor) { $apellido = explode(" ", $editor->apellidos)?>
+								<?php foreach($editores as $editor) { $nombre = explode(" ", $editor->nombre); $apellido = explode(" ", $editor->apellidos)?>
 								<label>
 									<input type="radio" name="autor" value="user-<?php echo $editor->id?>">
-									<?php echo $editor->nombre." ".$apellido[0]?>
+									<?php echo $nombre[0]." ".$apellido[0]?>
 								</label>
 								<?php }?>
 							</div>

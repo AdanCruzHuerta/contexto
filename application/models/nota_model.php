@@ -12,23 +12,28 @@ class Nota_model extends CI_Model{
 						->select('notas.status')
 						->select('notas.tipo_nota')
 						->select('notas.fecha')
-						->select('personas.nombre')
-						->select('personas.apellido_p')
-						->select('personas.apellido_m')
-						->select('secciones.nombre')
+						->select('personas.nombre as autor_nombre')
+						->select('personas.apellidos')
 						->from('notas')
-						->join('personas','notas.personas_id = personas.id')
+						->join('personas_has_notas','notas.id = personas_has_notas.notas_id')
+						->join('personas','personas_has_notas.personas_id = personas.id')
 						->join('secciones_has_notas','notas.id = secciones_has_notas.notas_id')
 						->join('secciones','secciones_has_notas.secciones_id = secciones.id')
+						->where('personas_has_notas.tipo',1)
 						->get()
 						->result();
 	}
-
+	/*
+		select notas.id, notas.nombre, notas.fecha, notas.tipo_nota, personas.nombre
+		FROM notas join personas_has_notas on notas.id = personas_has_notas.notas_id
+		join personas on personas_has_notas.personas_id = personas.id
+		where personas_has_notas.tipo = 1;
+	*/
 	public function crearNota($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,$redaccion)
 	{
 		$this->db->set('nombre',$nombre)
 				->set('status',1) 
-				->set('fecha',date("Y/m/d"))
+				->set('fecha',date("Y/m/d H:i:s"))
 				->set('contenido',$contenido)
 				->set('tipo_nota',$tipo_nota)
 				->set('imagen_nota',$imagen_nota)
@@ -41,7 +46,7 @@ class Nota_model extends CI_Model{
 	{
 		$this->db->set('nombre',$nombre)
 				 ->set('status',1)
-				 ->set('fecha',date("Y/m/d"))
+				 ->set('fecha',date("Y/m/d H:i:s"))
 				 ->set('contenido',$contenido)
 				 ->set('tipo_nota',$tipo_nota)
 				 ->set('imagen_nota',$imagen_nota)

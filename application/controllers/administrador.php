@@ -27,9 +27,9 @@ class Administrador extends CI_Controller {
 
 			$data['administrador'] = $this->usuario_model->all($this->usuario);
 
-			$data['editores'] = $this->usuario_model->get_usuarios_editores(2); 	// editores
+			$data['editores'] = $this->usuario_model->get_usuarios_editores(); 	// editores
 
-			$data['reporteros'] = $this->usuario_model->get_usuarios_reporteros(3);	//reporteros
+			$data['reporteros'] = $this->usuario_model->get_usuarios_reporteros();	//reporteros
 
 			$data['columnas'] = $this->columna_model->activas();	// columnas activas
 

@@ -21,10 +21,10 @@ class Nota extends CI_Controller {
    public function index()
    {
  		if($this->sesion == 1):
-      echo $this->nuevanota->show_hello_world($this->sesion);
 			$data['contenido'] = 'administrador/notas';
 			$data['administrador'] = $this->usuario_model->all($this->usuario);
       $data['notas'] = $this->nota_model->all();
+      echo var_dump($data['notas']);
 			$this->load->view('templates/layoutAdministrador', $data);
 		else:
 			redirect('administrador');
