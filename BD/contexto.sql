@@ -18,54 +18,106 @@ USE `contexto`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `imagen_nota`
+-- Table structure for table `columna`
 --
 
-DROP TABLE IF EXISTS `imagen_nota`;
+DROP TABLE IF EXISTS `columna`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `imagen_nota` (
+CREATE TABLE `columna` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `imagen_columna` varchar(255) NOT NULL,
+  `fecha_creacion` date NOT NULL,
+  `estatus` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `columna`
+--
+
+LOCK TABLES `columna` WRITE;
+/*!40000 ALTER TABLE `columna` DISABLE KEYS */;
+INSERT INTO `columna` VALUES (1,'El Volcán de Colima','media/img/notas/columnas/volcan de colima.jpeg','2015-03-16',1);
+/*!40000 ALTER TABLE `columna` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `galerias`
+--
+
+DROP TABLE IF EXISTS `galerias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `galerias` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(80) NOT NULL,
+  `autor` varchar(80) NOT NULL,
+  `fecha_creacion` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `galerias`
+--
+
+LOCK TABLES `galerias` WRITE;
+/*!40000 ALTER TABLE `galerias` DISABLE KEYS */;
+/*!40000 ALTER TABLE `galerias` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `imagenes`
+--
+
+DROP TABLE IF EXISTS `imagenes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `imagenes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
   `ruta_imagen` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `imagen_nota`
+-- Dumping data for table `imagenes`
 --
 
-LOCK TABLES `imagen_nota` WRITE;
-/*!40000 ALTER TABLE `imagen_nota` DISABLE KEYS */;
-/*!40000 ALTER TABLE `imagen_nota` ENABLE KEYS */;
+LOCK TABLES `imagenes` WRITE;
+/*!40000 ALTER TABLE `imagenes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `imagenes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `imagen_nota_has_notas`
+-- Table structure for table `imagenes_has_galerias`
 --
 
-DROP TABLE IF EXISTS `imagen_nota_has_notas`;
+DROP TABLE IF EXISTS `imagenes_has_galerias`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `imagen_nota_has_notas` (
-  `imagen_nota_id` int(11) NOT NULL,
-  `notas_id` int(11) NOT NULL,
-  PRIMARY KEY (`imagen_nota_id`,`notas_id`),
-  KEY `fk_imagen_nota_has_notas_notas1_idx` (`notas_id`),
-  KEY `fk_imagen_nota_has_notas_imagen_nota1_idx` (`imagen_nota_id`),
-  CONSTRAINT `fk_imagen_nota_has_notas_imagen_nota1` FOREIGN KEY (`imagen_nota_id`) REFERENCES `imagen_nota` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_imagen_nota_has_notas_notas1` FOREIGN KEY (`notas_id`) REFERENCES `notas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE `imagenes_has_galerias` (
+  `imagenes_id` int(11) NOT NULL,
+  `galerias_id` int(11) NOT NULL,
+  PRIMARY KEY (`imagenes_id`,`galerias_id`),
+  KEY `fk_imagenes_has_galerias_galerias1_idx` (`galerias_id`),
+  KEY `fk_imagenes_has_galerias_imagenes1_idx` (`imagenes_id`),
+  CONSTRAINT `fk_imagenes_has_galerias_galerias1` FOREIGN KEY (`galerias_id`) REFERENCES `galerias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_imagenes_has_galerias_imagenes1` FOREIGN KEY (`imagenes_id`) REFERENCES `imagenes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `imagen_nota_has_notas`
+-- Dumping data for table `imagenes_has_galerias`
 --
 
-LOCK TABLES `imagen_nota_has_notas` WRITE;
-/*!40000 ALTER TABLE `imagen_nota_has_notas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `imagen_nota_has_notas` ENABLE KEYS */;
+LOCK TABLES `imagenes_has_galerias` WRITE;
+/*!40000 ALTER TABLE `imagenes_has_galerias` DISABLE KEYS */;
+/*!40000 ALTER TABLE `imagenes_has_galerias` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -77,14 +129,22 @@ DROP TABLE IF EXISTS `notas`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `notas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT 'Aqui va el estatus de la nota\n0 - borrada\n1- activa\n',
   `fecha` datetime NOT NULL,
-  `personas_id` int(11) NOT NULL,
-  `tipo_nota` int(11) NOT NULL COMMENT 'Tipos de notas\n1 - comun\n2 - columna\n3 - galeria\n4 - video',
+  `contenido` text NOT NULL,
+  `tipo_nota` int(11) NOT NULL COMMENT 'Los tipos de nota son \n1 - comun\n2 - columna\n3 - galeria\n4 - video',
+  `imagen_nota` varchar(255) NOT NULL DEFAULT '-',
+  `url_video` text NOT NULL,
+  `redaccion` int(11) NOT NULL,
+  `galerias_id` int(11) DEFAULT NULL,
+  `columna_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_notas_personas1_idx` (`personas_id`),
-  CONSTRAINT `fk_notas_personas1` FOREIGN KEY (`personas_id`) REFERENCES `personas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='status : indica si una nota esta activa o no activa, las notas no activas podran volver a restaurarse.\nfecha : fecha y hora de creacion de la nota.\n';
+  KEY `fk_notas_galerias1_idx` (`galerias_id`),
+  KEY `fk_notas_columna1_idx` (`columna_id`),
+  CONSTRAINT `fk_notas_columna1` FOREIGN KEY (`columna_id`) REFERENCES `columna` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notas_galerias1` FOREIGN KEY (`galerias_id`) REFERENCES `galerias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='status : indica si una nota esta activa o no activa, las notas no activas podran volver a restaurarse.\nfecha : fecha y hora de creacion de la nota.\nurl_video indica la url de un video publicado en youtube\n';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,6 +153,7 @@ CREATE TABLE `notas` (
 
 LOCK TABLES `notas` WRITE;
 /*!40000 ALTER TABLE `notas` DISABLE KEYS */;
+INSERT INTO `notas` VALUES (1,'Nota 1 Redacción-Común',1,'2015-03-16 12:42:22','<p>Nota 1 Redacción-Común<br></p>',1,'media/img/notas/noticia.jpg','',1,NULL,NULL),(2,'Nota 2 Autor-Común',1,'2015-03-16 12:57:21','<p>Nota 2 Autor-Común<br></p>',1,'media/img/notas/noticia.jpg','',0,NULL,NULL),(3,'El Volcán de Colima',1,'2015-03-16 12:58:18','Nota 3 Redacción-Columna<br>',2,'media/img/notas/columnas/volcan de colima.jpeg','',1,NULL,1),(4,'El Volcán de Colima',1,'2015-03-16 12:58:36','Nota 4 Autor-Columna',2,'media/img/notas/columnas/volcan de colima.jpeg','',1,NULL,1),(5,'El Volcán de Colima',1,'2015-03-16 13:01:56','Nota 5 Autor-Columna',2,'media/img/notas/columnas/volcan de colima.jpeg','',0,NULL,1),(6,'Nota 6 Redaccion-Video',1,'2015-03-16 13:06:07','Nota 6 Redaccion-Video',3,'media/img/notas/noticia.jpg',' <iframe width=\"420\" height=\"315\"\nsrc=\"http://www.youtube.com/embed/XGSy3_Czz8k\">\n</iframe> ',1,NULL,NULL),(7,'Nota 7 Autor-Video',1,'2015-03-16 13:07:04','Nota 7 Autor-Video',3,'media/img/notas/noticia.jpg',' <iframe width=\"420\" height=\"315\"\nsrc=\"http://www.youtube.com/embed/XGSy3_Czz8k\">\n</iframe> ',0,NULL,NULL),(8,'El Volcán de Colima',1,'2015-03-16 18:15:45','<p>Nota de prueba <br></p>',2,'media/img/notas/columnas/volcan de colima.jpeg','',0,NULL,1);
 /*!40000 ALTER TABLE `notas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,12 +168,11 @@ CREATE TABLE `notificaciones` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `notas_id` int(11) NOT NULL,
   `tipo` int(11) NOT NULL COMMENT '1- creada\n2- modificada\n3-eliminada',
-  `administrador` int(11) NOT NULL DEFAULT '0' COMMENT 'administrador 0 siginifica que no lo ha visto\nadministrador 1 significa que ya la vio',
-  `editor` int(11) NOT NULL DEFAULT '0' COMMENT 'editor 0 siginifica que no lo ha visto\neditor 1 significa que ya la vio',
+  `status` int(11) NOT NULL COMMENT '0: La Notificacion No se ha visualizado\n1: La Notificacion se ha visto\n',
   PRIMARY KEY (`id`),
   KEY `fk_notificaciones_notas1_idx` (`notas_id`),
   CONSTRAINT `fk_notificaciones_notas1` FOREIGN KEY (`notas_id`) REFERENCES `notas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Notificaciones\n\ntipo : tipo de notificación  	\nadministrador :  indica si es para el administrador\neditor : indica si es para el editor';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='Notificaciones\n\n-tipo : tipo de notificación 	\n	1 : nueva nota\n	2 : nota modificada\n	3 : nota borrada\n-status: \n	vista o no vista\n- tipo_usuario: \n	1 administrador,\n	2 editor\n	3 reportero';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,6 +181,7 @@ CREATE TABLE `notificaciones` (
 
 LOCK TABLES `notificaciones` WRITE;
 /*!40000 ALTER TABLE `notificaciones` DISABLE KEYS */;
+INSERT INTO `notificaciones` VALUES (1,1,1,0),(2,2,1,0),(3,3,1,0),(4,4,1,0),(5,5,1,0),(6,6,1,0),(7,7,1,0),(8,8,1,0);
 /*!40000 ALTER TABLE `notificaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,14 +195,14 @@ DROP TABLE IF EXISTS `personas`;
 CREATE TABLE `personas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
-  `apellido_p` varchar(45) NOT NULL,
-  `apellido_m` varchar(45) NOT NULL,
+  `apellidos` varchar(45) NOT NULL,
   `telefono` varchar(45) NOT NULL,
+  `direccion` varchar(100) NOT NULL,
   `usuarios_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_personas_usuarios1_idx` (`usuarios_id`),
   CONSTRAINT `fk_personas_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,8 +211,37 @@ CREATE TABLE `personas` (
 
 LOCK TABLES `personas` WRITE;
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
-INSERT INTO `personas` VALUES (1,'ADAN','CRUZ','HUERTA','3121040103',1);
+INSERT INTO `personas` VALUES (1,'Adán','Cruz Huerta','3121040103','Sauce 405',1),(2,'Christian Ramón','Magallon Garcia','3121030405','',2);
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `personas_has_notas`
+--
+
+DROP TABLE IF EXISTS `personas_has_notas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `personas_has_notas` (
+  `personas_id` int(11) NOT NULL,
+  `notas_id` int(11) NOT NULL,
+  `tipo` int(11) NOT NULL COMMENT 'El tipo de \npersona_has_nota\nindica si una\npersona sube la \nnota o es autor de\nla nota.\nOpciones:\n1 : Autor\n2 : Publica nota\n',
+  PRIMARY KEY (`personas_id`,`notas_id`,`tipo`),
+  KEY `fk_personas_has_notas_notas1_idx` (`notas_id`),
+  KEY `fk_personas_has_notas_personas1_idx` (`personas_id`),
+  CONSTRAINT `fk_personas_has_notas_notas1` FOREIGN KEY (`notas_id`) REFERENCES `notas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_personas_has_notas_personas1` FOREIGN KEY (`personas_id`) REFERENCES `personas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `personas_has_notas`
+--
+
+LOCK TABLES `personas_has_notas` WRITE;
+/*!40000 ALTER TABLE `personas_has_notas` DISABLE KEYS */;
+INSERT INTO `personas_has_notas` VALUES (1,1,2),(1,2,1),(1,2,2),(1,3,2),(1,4,2),(1,5,1),(1,5,2),(1,6,2),(1,7,1),(1,7,2),(1,8,2),(2,8,1);
+/*!40000 ALTER TABLE `personas_has_notas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -189,7 +279,7 @@ CREATE TABLE `secciones` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(65) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,6 +288,7 @@ CREATE TABLE `secciones` (
 
 LOCK TABLES `secciones` WRITE;
 /*!40000 ALTER TABLE `secciones` DISABLE KEYS */;
+INSERT INTO `secciones` VALUES (1,'Primera plana'),(2,'Gobierno'),(3,'Seguridad'),(4,'Educación'),(5,'Salud'),(6,'Economia'),(7,'Colima'),(8,'Manzanillo'),(9,'Villa de Álvarez'),(10,'Tecomán'),(11,'Armeria'),(12,'Zona norte'),(13,'Entidades'),(14,'Cultura'),(15,'Sociales'),(16,'Medio ambiente'),(17,'Urbes'),(18,'Migrantes'),(19,'Agro'),(20,'Elecciones 2015');
 /*!40000 ALTER TABLE `secciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,6 +316,7 @@ CREATE TABLE `secciones_has_notas` (
 
 LOCK TABLES `secciones_has_notas` WRITE;
 /*!40000 ALTER TABLE `secciones_has_notas` DISABLE KEYS */;
+INSERT INTO `secciones_has_notas` VALUES (1,1),(1,2),(1,6),(1,7);
 /*!40000 ALTER TABLE `secciones_has_notas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,14 +382,15 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(60) NOT NULL,
-  `password` varchar(60) NOT NULL,
-  `foto_usuario` varchar(255) NOT NULL,
+  `email` varchar(60) COLLATE utf8_bin NOT NULL,
+  `password` varchar(60) COLLATE utf8_bin NOT NULL,
+  `foto_usuario` varchar(255) COLLATE utf8_bin NOT NULL,
+  `status` tinyint(4) NOT NULL,
   `roles_usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_usuarios_roles_usuario_idx` (`roles_usuario_id`),
   CONSTRAINT `fk_usuarios_roles_usuario` FOREIGN KEY (`roles_usuario_id`) REFERENCES `roles_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -306,7 +399,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'adancruzhuerta@gmail.com','12345','media/img/usuarios/avatar.png',1);
+INSERT INTO `usuarios` VALUES (1,'adancruzhuerta@gmail.com','12345','media/img/usuarios/avatar.png',1,1),(2,'christian1350@hotmail.com','hola','media/img/usuarios/avatar.png',1,2);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -319,4 +412,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-04 21:15:08
+-- Dump completed on 2015-03-17  0:45:25
