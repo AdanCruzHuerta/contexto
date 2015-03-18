@@ -7,28 +7,9 @@ class Nota_model extends CI_Model{
 
 	public function all()
 	{
-		return $this->db->select('notas.id')
-						->select('notas.nombre')
-						->select('notas.status')
-						->select('notas.tipo_nota')
-						->select('notas.fecha')
-						->select('personas.nombre as autor_nombre')
-						->select('personas.apellidos')
-						->from('notas')
-						->join('personas_has_notas','notas.id = personas_has_notas.notas_id')
-						->join('personas','personas_has_notas.personas_id = personas.id')
-						->join('secciones_has_notas','notas.id = secciones_has_notas.notas_id')
-						->join('secciones','secciones_has_notas.secciones_id = secciones.id')
-						->where('personas_has_notas.tipo',1)
-						->get()
-						->result();
+		return $this->db->query("SELECT  n.id, n.nombre, n.fecha, n.tipo_nota, n.status, autores(n.id) as autor, publicador(n.id) as publicador FROM notas as n  order by(n.id)");
 	}
-	/*
-		select notas.id, notas.nombre, notas.fecha, notas.tipo_nota, personas.nombre
-		FROM notas join personas_has_notas on notas.id = personas_has_notas.notas_id
-		join personas on personas_has_notas.personas_id = personas.id
-		where personas_has_notas.tipo = 1;
-	*/
+
 	public function crearNota($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,$redaccion)
 	{
 		$this->db->set('nombre',$nombre)
@@ -70,5 +51,26 @@ class Nota_model extends CI_Model{
 						->set('notas_id',$nota_id)
 						->set('tipo',$tipo) //tipo de persona_nota
 						->insert('personas_has_notas');
+	}
+
+	public function desactivar_nota($id)
+	{
+		return $this->db->set('status',0)
+						->where('id',$id)
+						->update('notas');
+	}
+
+	public function activar_nota($id)
+	{
+		return $this->db->set('status',1)
+						->where('id',$id)
+						->update('notas');
+	}
+
+	public function detalle_nota($id)
+	{
+		return $this->db->where('id',$id)
+						->get('notas')
+						->row();
 	}
 }

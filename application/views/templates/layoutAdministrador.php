@@ -255,7 +255,7 @@
 	                            </div>
 	                        </li>
 	                        <li>
-	                            <a href="" class="<?php if($contenido == 'administrador/inicio' || $contenido == 'administrador/newcolumna' || $contenido == 'administrador/columnas' || $contenido == 'administrador/notas' || $contenido == 'administrador/altercolumna') echo 'active';?>" ><i class="fa fa-book fa-fw"></i> Notas <span class="fa arrow"></span></a>
+	                            <a href="" class="<?php if($contenido == 'administrador/nota' ||$contenido == 'administrador/inicio' || $contenido == 'administrador/newcolumna' || $contenido == 'administrador/columnas' || $contenido == 'administrador/notas' || $contenido == 'administrador/altercolumna') echo 'active';?>" ><i class="fa fa-book fa-fw"></i> Notas <span class="fa arrow"></span></a>
 	                        	<ul class="nav nav-second-level">
 	                        		<li href="#">
 	                            		<a href="<?php echo site_url('administrador/panel');?>">Crear notas</a>

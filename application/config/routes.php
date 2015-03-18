@@ -31,7 +31,7 @@ $route['administrador/notas/editar/(:num)'] = 'nota/edit/$1';
 
 $route['administrador/notas/actualizar'] = 'nota/update';
 
-$route['administrador/notas/borrar/(:num)'] = 'nota/delete/$1';
+$route['administrador/notas/change_status'] = 'nota/change_status';
 
 /*
 |-----------------------------------------------------------

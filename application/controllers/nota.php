@@ -23,8 +23,7 @@ class Nota extends CI_Controller {
  		if($this->sesion == 1):
 			$data['contenido'] = 'administrador/notas';
 			$data['administrador'] = $this->usuario_model->all($this->usuario);
-      $data['notas'] = $this->nota_model->all();
-      echo var_dump($data['notas']);
+      $data['notas'] = $this->nota_model->all()->result();
 			$this->load->view('templates/layoutAdministrador', $data);
 		else:
 			redirect('administrador');
@@ -157,19 +156,17 @@ class Nota extends CI_Controller {
     endif;
    }
 
-   public function store()
-   {
- 		//
-   }
-
-   public function show($id)
-   {
- 		  echo "La nota que buscas es: ".$id;
-   }
-
    public function edit($id)
    {
- 	    echo "La nota a editar es: ".$id;
+ 	    if($this->sesion == 1)
+      {
+        $data['contenido'] = 'administrador/nota';
+        $data['administrador'] = $this->usuario_model->all($this->usuario);
+        $data['nota'] = $this->nota_model->detalle_nota($id);
+        $this->load->view('templates/layoutAdministrador',$data);
+      }else{
+        redirect('administrador');
+      }
    }
 
    public function update()
@@ -177,9 +174,24 @@ class Nota extends CI_Controller {
  		//
    }
 
-   public function delete($id)
+   public function change_status()
    {
- 		   echo "La nota a borrar es: ". $id;
+      if($this->sesion == 1){
+          $id = $this->input->post('id_nota');
+          $status = $this->input->post('status_nota');
+
+          if($status == 1){
+              // Desactivamos nota
+              $desctivar = $this->nota_model->desactivar_nota($id);
+              redirect('administrador/notas');
+          }else{
+              // Activamos nota
+              $activar = $this->nota_model->activar_nota($id);
+              redirect('administrador/notas');
+          }
+      }else{
+        redirect('administrador');
+      }
    }
 
 }
