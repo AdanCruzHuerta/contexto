@@ -73,4 +73,25 @@ class Nota_model extends CI_Model{
 						->get('notas')
 						->row();
 	}
+
+	public function autor($id)
+	{
+		return $this->db->query("select personas.nombre, personas.apellidos 
+								 from notas join personas_has_notas on notas.id = personas_has_notas.notas_id
+								 join personas on personas_has_notas.personas_id = personas.id 
+								 where notas.id = ".$id." and personas_has_notas.tipo = 1");
+	}
+
+	public function publico($id)
+	{
+		return $this->db->select('p.nombre')
+						->select('p.apellidos')
+						->from('notas as n')
+						->join('personas_has_notas as pn','n.id = pn.notas_id')
+						->join('personas as p','pn.personas_id = p.id')
+						->where('n.id',$id)
+						->or_where('pn.tipo',2)
+						->get()
+						->row();
+	}
 }

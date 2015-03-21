@@ -15,7 +15,7 @@
 |
 */
 $config['base_url']	= 'http://localhost/contexto/';
-
+//$config['base_url']	= 'http://contexto.sharksoft.com.mx/';
 /*
 |--------------------------------------------------------------------------
 */

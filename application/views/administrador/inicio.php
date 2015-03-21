@@ -1,4 +1,9 @@
 <style type="text/css">
+	.modal-body .file-preview-frame,
+	.modal-body .file-preview-frame > img{
+		width: 150px !important;
+		height: 150px !important;
+	}
 	.file-preview-frame{
 		width: 98% !important;
 	}
@@ -332,9 +337,12 @@
 	      		</div>
 	      		<form id="form-addgaleria">
 		      		<div class="modal-body">
-		      			<div id="alerta"></div>
+		      			<div id="alerta_galeria"></div>
 		      			<label>Nombre:</label>
-		      			<input type="text" class="form-control" placeholder="Escribe el nombre de la galería"/><br>
+		      			<input type="text" name="nombre_galeria" id="nombre_galeria" class="form-control" placeholder="Escribe el nombre de la galería"/><br>
+						
+						<label for="autor">Autor:</label>
+						<input type="text" name="autor_galeria" id="autor_galeria" class="form-control" placeholder="Esribe el nombre del autor"/><br>
 
 		      			<label>Imagenes:</label>
 		      			<input type="file" class="file" name="imgGaleria" id="imagen-galeria" multiple="true" data-show-upload="false" data-show-caption="true">
@@ -363,8 +371,9 @@
 			'image/jpeg': true
 	};
 	var imagen;
+	var galeria;
 	var columna = true;
-	var imagenesGaleria;
+	var imagenesGaleria = [];
 
 	$(function(){
 
@@ -494,6 +503,48 @@
 			}
         });
 
+		var galeriaNueva = $('#form-addgaleria').validate({
+			errorElement: "span",
+        	errroClass: "help-block",
+        	rules: {
+        		nombre_galeria:{required:true},
+        		autor_galeria:{required:true}
+        	},
+        	highlight: function(element, error) {
+				$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+			},
+			success: function(element) {
+				$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+			},
+			submitHandler: function() {
+
+				var formulario = $("#form-addgaleria").serialize();
+				
+				galeria = new FormData();
+				$.each(imagenesGaleria, function(key, value)
+				{
+					galeria.append(key, value);
+				});
+
+				$.ajax({
+					type: "POST",
+					url: "<?php echo site_url('administrador/notas/galeria');?>?"+ formulario,
+					cache: false,
+					processData: false,
+					contentType: false,
+					data: galeria,
+					success: function(result){
+						var datos = $.parseJSON(result);
+						if(datos.resp){
+							$('#alerta_galeria').html('<div class="alert alert-success animated bounceIn" role="alert"><i class="fa fa-check"></i> '+datos.mensaje+'</div>');
+						}else{
+							$('#alerta_galeria').html('<div class="alert alert-danger animated bounceIn" role="alert"><i class="fa fa-times"></i><p>Ha ocurrido un error</p></div>');
+						}
+					}
+				});
+			}
+		});
+
 		$('.mitooltip').tooltip();
 
 		$('#crear-galeria').click(function(){
@@ -526,7 +577,6 @@
 	});
 
 	$(document).on('change','#imagen-galeria', function(e){
-		files = e.target.files;
+		imagenesGaleria = e.target.files;
 	});
-
 </script>

@@ -12,6 +12,7 @@ class Nota extends CI_Controller {
 		    $this->load->model('nota_model');
         $this->load->model('notificacion_model');
         $this->load->model('columna_model');
+        $this->load->model('galeria_model');
         $this->load->library('nuevanota');
         $this->sesion = $this->session->userdata('rol');
         $this->usuario = $this->session->userdata('id');
@@ -19,7 +20,7 @@ class Nota extends CI_Controller {
    }
 
    public function index()
-   {
+   { 
  		if($this->sesion == 1):
 			$data['contenido'] = 'administrador/notas';
 			$data['administrador'] = $this->usuario_model->all($this->usuario);
@@ -163,15 +164,53 @@ class Nota extends CI_Controller {
         $data['contenido'] = 'administrador/nota';
         $data['administrador'] = $this->usuario_model->all($this->usuario);
         $data['nota'] = $this->nota_model->detalle_nota($id);
+        $data['nota_autor'] = $this->nota_model->autor($id);
+        echo var_dump($data['nota_autor']);
+        $data['nota_publico'] = $this->nota_model->publico($id);
         $this->load->view('templates/layoutAdministrador',$data);
       }else{
         redirect('administrador');
       }
    }
 
-   public function update()
+   public function galeria()
    {
- 		//
+       if($this->sesion == 1){
+          if($this->input->get()){
+            $nombre = $this->input->get('nombre_galeria'); 
+            $autor = $this->input->get('autor_galeria');
+
+            if ($_FILES) {
+
+                $id_galeria = $this->galeria_model->galeria_save($nombre,$autor);
+
+                for($i = 0; $i < count($_FILES); $i++){
+                  $nombre_imagen = $_FILES[$i]["name"];
+                  $ruta_imagen = 'media/img/notas/galerias/'.$nombre_imagen;
+
+                  if(move_uploaded_file($_FILES[$i]['tmp_name'], $ruta_imagen))
+                  {
+                      $imagen_id = $this->galeria_model->imagen_save($nombre_imagen,$ruta_imagen);
+                      $this->galeria_model->imagenes_has_galerias($imagen_id,$id_galeria);  
+                  }                  
+
+                  // if(move_uploaded_file($_FILES[$i]['tmp_name'],$ruta_imagen)
+                  // {
+                  //   $imagen_id = $this->galeria_model->imagen_save($nombre_imagen,$ruta_imagen);
+                  //   $this->galeria_model->imagenes_has_galerias($imagen_id,$id_galeria);
+                  // }else{
+                  //   echo json_encode(array('resp'=>false, 'mensaje'=>'Error al guardar las imagenes'));
+                  //   exit();
+                  // }
+                }
+
+                echo json_encode(array('resp'=>true,'mensaje'=>'La galería se creo correctamente'));   
+            } 
+            else{
+                echo json_encode(array('resp'=>false,'mensaje'=>'Error al cargar las imagenes'));
+            }           
+          }
+      }    
    }
 
    public function change_status()

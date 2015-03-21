@@ -33,6 +33,8 @@ $route['administrador/notas/actualizar'] = 'nota/update';
 
 $route['administrador/notas/change_status'] = 'nota/change_status';
 
+$route['administrador/notas/galeria'] = 'nota/galeria';
+
 /*
 |-----------------------------------------------------------
 |		Rutas de Columnas
