@@ -29,7 +29,7 @@
 					  	</div>
 					  	<div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-6">
 					  		<label for="">Autor</label>
-					  		<input name="nombre" type="text" class="form-control" id="autor" readonly value="<?php echo $nota_autor->nombre." ".$nota_autor->apellidos; ?>">
+					  		<input name="nombre" type="text" class="form-control" id="autor" readonly value="<?php if($nota_autor) echo $nota_autor->nombre." ".$nota_autor->apellidos; else echo "Redacción";?>">
 					  	</div>
 					  	<div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-6">
 					  		<label for="">Publicó</label>
@@ -45,10 +45,11 @@
 					  	</div>
 					  	<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					  		<label for="video">Frame Video</label>
-					  		<textarea class="form-control" name="url_video" id="url_video" readonly></textarea>					  		
+					  		<textarea class="form-control" name="url_video" id="url_video" readonly><?php echo $nota->url_video; ?></textarea>					  		
 					  	</div>
 					  	<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					  		<label for="contenido">Contenido</label>
+					  		<textarea class="form-control" name="contenido" id="contenido" rows="7" readonly><?php echo $nota->contenido;?></textarea>
 					  	</div>
 					</form>
 				</div>

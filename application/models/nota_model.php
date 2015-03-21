@@ -37,6 +37,21 @@ class Nota_model extends CI_Model{
 				 ->insert('notas');
 		return $this->db->insert_id();
 	}
+
+	public function crearNotaGaleria($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,$redaccion,$galeria_id){
+		$this->db->set('nombre',$nombre)
+				 ->set('status',1)
+				 ->set('fecha',date("Y/m/d H:i:s"))
+				 ->set('contenido',$contenido)
+				 ->set('tipo_nota',$tipo_nota)
+				 ->set('imagen_nota',$imagen_nota)
+				 ->set('url_video',$url_video)
+				 ->set('redaccion',$redaccion)
+				 ->set('galerias_id',$galeria_id)
+				 ->insert('notas');
+		return $this->db->insert_id();
+	}
+
 	public function secciones_has_nota($seccion,$nota_id)
 	{
 

@@ -12,6 +12,8 @@ class Administrador extends CI_Controller {
 
        $this->load->model('columna_model');
 
+       $this->load->model('galeria_model');
+
        $this->sesion = $this->session->userdata('rol');
 
        $this->usuario = $this->session->userdata('id');
@@ -23,7 +25,7 @@ class Administrador extends CI_Controller {
 	{
 		if($this->sesion == 1 && $this->status == 1 ):
 
-			$data['contenido'] = 'administrador/inicio';
+			$data['contenido'] = 'administrador/panel';
 
 			$data['administrador'] = $this->usuario_model->all($this->usuario);
 
@@ -32,6 +34,8 @@ class Administrador extends CI_Controller {
 			$data['reporteros'] = $this->usuario_model->get_usuarios_reporteros();	//reporteros
 
 			$data['columnas'] = $this->columna_model->activas();	// columnas activas
+
+			$data['galerias'] = $this->galeria_model->all();	//galerias
 
 			$this->load->view('templates/layoutAdministrador', $data);
 

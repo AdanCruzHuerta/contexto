@@ -21,19 +21,19 @@ class Nota extends CI_Controller {
 
    public function index()
    { 
- 		if($this->sesion == 1):
-			$data['contenido'] = 'administrador/notas';
-			$data['administrador'] = $this->usuario_model->all($this->usuario);
-      $data['notas'] = $this->nota_model->all()->result();
-			$this->load->view('templates/layoutAdministrador', $data);
-		else:
-			redirect('administrador');
-		endif;
+ 		 if($this->sesion == 1):
+			   $data['contenido'] = 'administrador/notas';
+			   $data['administrador'] = $this->usuario_model->all($this->usuario);
+         $data['notas'] = $this->nota_model->all()->result();
+			   $this->load->view('templates/layoutAdministrador', $data);
+		  else:
+			   redirect('administrador');
+		  endif;
    }
  
    public function create()
    {
-    if($this->sesion == 1):
+      if($this->sesion == 1):
       if( $this->input->get() ):
         $nombre = $this->input->get("nombre");
         $contenido = $this->input->get("contenido");
@@ -42,7 +42,8 @@ class Nota extends CI_Controller {
         $autor = $this->input->get('autor');
         $secciones = $this->input->get('secciones_id');
         $columna_id = $this->input->get('columna');
-        if($_FILES){ $file = $_FILES[0]['name']; $imagen_nota = "media/img/notas/".$file; }
+        $galeria_id = $this->input->get('galerias_id');
+        if($_FILES){ $file = $_FILES[0]['name']; $imagen_nota = "media/img/notas/".$file;}
 
         /*
         |   TIPO DE NOTA COMUN
@@ -85,7 +86,7 @@ class Nota extends CI_Controller {
             if($autor == 'redaccion'){
               /*
               |   Parametros para nueva nota columna
-              |   1.-$columna_id, 2.-$contenido, 3.-$tipo_nota, 4.-$url_video, 5.-$redaccion, 6.-$columna_id, 7.- autor
+              |   1.-$contenido, 2.-$tipo_nota, 3.-$url_video, 4.-$redaccion, 5.-$columna_id, 6.- autor
               */
               $nota = $this->nuevanota->nota_columna($contenido,$tipo_nota,$url_video,1,$columna_id,$autor);
               if($nota){
@@ -142,7 +143,29 @@ class Nota extends CI_Controller {
         */
         else                      
         {
-          //
+            if ($autor == 'redaccion') {
+              /*
+              |   Parametros para nueva nota columna
+              |   1.- $nombre, 2.$contenido, 3.-$tipo_nota, 4.-$url_video, 5.-$redaccion, 6.-$galeria_id, 7.- autor
+              */
+                $nota = $this->nuevanota->nota_galeria($nombre,$contenido,$tipo_nota,$url_video,1,$galeria_id,$secciones,$autor);
+                if($nota){
+                    echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
+                }else{
+                    echo json_encode(array('resp'=>false,'mensaje'=>'Error al crear la nota'));
+                }
+            }else{
+                $autor = explode("-", $autor);
+                $autor = $autor[1];
+
+                $nota = $this->nuevanota->nota_galeria($nombre,$contenido,$tipo_nota,$url_video,0,$galeria_id,$secciones,$autor);
+
+                 if($nota){
+                  echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
+                }else{
+                  echo json_encode(array("resp"=>false, "mensaje"=>"Error al crear la nota"));
+                }
+            }
         }
       else:
 
@@ -150,11 +173,11 @@ class Nota extends CI_Controller {
 
       endif;
 
-    else:
+      else:
 
       redirect('administrador');
 
-    endif;
+      endif;
    }
 
    public function edit($id)
@@ -164,8 +187,7 @@ class Nota extends CI_Controller {
         $data['contenido'] = 'administrador/nota';
         $data['administrador'] = $this->usuario_model->all($this->usuario);
         $data['nota'] = $this->nota_model->detalle_nota($id);
-        $data['nota_autor'] = $this->nota_model->autor($id);
-        echo var_dump($data['nota_autor']);
+        $data['nota_autor'] = $this->nota_model->autor($id)->row();
         $data['nota_publico'] = $this->nota_model->publico($id);
         $this->load->view('templates/layoutAdministrador',$data);
       }else{
@@ -193,18 +215,8 @@ class Nota extends CI_Controller {
                       $imagen_id = $this->galeria_model->imagen_save($nombre_imagen,$ruta_imagen);
                       $this->galeria_model->imagenes_has_galerias($imagen_id,$id_galeria);  
                   }                  
-
-                  // if(move_uploaded_file($_FILES[$i]['tmp_name'],$ruta_imagen)
-                  // {
-                  //   $imagen_id = $this->galeria_model->imagen_save($nombre_imagen,$ruta_imagen);
-                  //   $this->galeria_model->imagenes_has_galerias($imagen_id,$id_galeria);
-                  // }else{
-                  //   echo json_encode(array('resp'=>false, 'mensaje'=>'Error al guardar las imagenes'));
-                  //   exit();
-                  // }
                 }
-
-                echo json_encode(array('resp'=>true,'mensaje'=>'La galería se creo correctamente'));   
+                echo json_encode(array('resp'=>true,'mensaje'=>'La galería se creo correctamente','data_option_id'=>$id_galeria));   
             } 
             else{
                 echo json_encode(array('resp'=>false,'mensaje'=>'Error al cargar las imagenes'));

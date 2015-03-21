@@ -1,12 +1,7 @@
 <style type="text/css">
 	.modal-body .file-preview-frame,
-	.modal-body .file-preview-frame > img{
-		width: 150px !important;
-		height: 150px !important;
-	}
-	.file-preview-frame{
-		width: 98% !important;
-	}
+	.modal-body .file-preview-frame > img{width: 150px !important;height: 150px !important;}
+	.file-preview-frame{width: 98% !important;}
 </style>
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -51,6 +46,9 @@
 				<label for="columna">Galería</label>
 				<select  class="form-control" name="galerias_id" id="galerias_id">
 					<option value="">Selecciona una galería</option>
+					<?php foreach($galerias as $galeria){ ?>
+					<option value="<?php echo $galeria->id ?>"><?php echo $galeria->nombre; ?></option>
+					<?php } ?>
 				</select>
 			</div><br>
 
@@ -365,11 +363,7 @@
 
 	var file = [];
 	var files = [];
-	var acceptedTypes = {
-			'image/jpg':true,
-			'image/png': true,
-			'image/jpeg': true
-	};
+	var acceptedTypes = {'image/jpg':true, 'image/png': true, 'image/jpeg': true};
 	var imagen;
 	var galeria;
 	var columna = true;
@@ -442,6 +436,7 @@
         		imgNota:{required:true},
         		columna:{required:true},
         		url_video:{required:true},
+        		galerias_id:{required:true}
         	},
         	highlight: function(element, error) {
 				$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -489,6 +484,7 @@
 						$('#contenido').code('');
 						$('#columna').prop('selectedIndex',0);
 						$('#url_video').val('');
+						$('#galerias_id').prop('selectedIndex',0);
 						
 						if(datos.resp){
 							$('#alerta').css("display", "block");
@@ -508,7 +504,8 @@
         	errroClass: "help-block",
         	rules: {
         		nombre_galeria:{required:true},
-        		autor_galeria:{required:true}
+        		autor_galeria:{required:true},
+        		imgGaleria:{required:true}
         	},
         	highlight: function(element, error) {
 				$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -519,6 +516,7 @@
 			submitHandler: function() {
 
 				var formulario = $("#form-addgaleria").serialize();
+				var nombre_option = $("#nombre_galeria").val();
 				
 				galeria = new FormData();
 				$.each(imagenesGaleria, function(key, value)
@@ -536,6 +534,10 @@
 					success: function(result){
 						var datos = $.parseJSON(result);
 						if(datos.resp){
+							$('#imagen-galeria').fileinput('reset');
+							$('#nombre_galeria').val("");
+							$('#autor_galeria').val("");
+							$('#galerias_id').append('<option value='+datos.data_option_id+'>'+nombre_option+'</option>');
 							$('#alerta_galeria').html('<div class="alert alert-success animated bounceIn" role="alert"><i class="fa fa-check"></i> '+datos.mensaje+'</div>');
 						}else{
 							$('#alerta_galeria').html('<div class="alert alert-danger animated bounceIn" role="alert"><i class="fa fa-times"></i><p>Ha ocurrido un error</p></div>');

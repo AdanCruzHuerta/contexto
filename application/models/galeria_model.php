@@ -7,7 +7,8 @@ class Galeria_model extends CI_Model{
 
 	public function all()
 	{
-		return $this->db->get('galerias');
+		return $this->db->get('galerias')
+						->result();
 	}
 
 	public function galeria_save($nombre,$autor)
@@ -32,5 +33,16 @@ class Galeria_model extends CI_Model{
 		return $this->db->set('imagenes_id',$imagen_id)
 						->set('galerias_id',$id_galeria)
 						->insert('imagenes_has_galerias');
+	}
+
+	public function getRouteFirstElement($galeria_id)
+	{
+		return $this->db->select('imagenes.ruta_imagen')
+						->from('galerias')
+						->join('imagenes_has_galerias','galerias.id = imagenes_has_galerias.galerias_id')
+						->join('imagenes','imagenes_has_galerias.imagenes_id = imagenes.id')
+						->where('galerias.id',$galeria_id)
+						->get()
+						->result();
 	}
 }
