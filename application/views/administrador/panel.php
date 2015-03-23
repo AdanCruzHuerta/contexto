@@ -453,15 +453,6 @@
 					return false;
 				}
 
-				if(columna == false){
-					var cheks = $('input[type="checkbox"]:checked').length - 1 ;
-
-					if( cheks == 0){
-						$("#secciones_check").show();
-						return false;
-					}
-				}
-
 				var formulario = $("#form-addNota").serialize();
 				imagen = new FormData();
 				$.each(file, function(key, value)
@@ -478,21 +469,25 @@
 					data: imagen,
 					success: function(result){
 						var datos = $.parseJSON(result);
-						//limpiar campos de formulario
-						$('#nombre').val('');
-						$('#imagen').fileinput('reset');
-						$('#contenido').code('');
-						$('#columna').prop('selectedIndex',0);
-						$('#url_video').val('');
-						$('#galerias_id').prop('selectedIndex',0);
 						
 						if(datos.resp){
+							//limpiar campos de formulario
+							$('#nombre').val('');
+							$('#imagen').fileinput('reset');
+							$('#contenido').code('');
+							$('#columna').prop('selectedIndex',0);
+							$('#url_video').val('');
+							$('#galerias_id').prop('selectedIndex',0);
+
 							$('#alerta').css("display", "block");
 							$('#alerta').html('<div class="alert alert-success animated bounceIn" role="alert"><i class="fa fa-check"></i> '+datos.mensaje+'</div>');
 							$('#alerta').fadeOut(4000);
 							return false;
 						}else{
-							$('#alerta').html('<div class="alert alert-warning animated bounceIn" role="alert"><i class="fa fa-times">'+datos.mensaje+'</i></div>');
+							$('#alerta').css('display','block');
+							$('#alerta').html('<div class="alert alert-danger animated bounceIn" role="alert"><i class="fa fa-times">'+datos.mensaje+'</i></div>');
+							$('#alerta').fadeOut(5000);
+							return false;
 						}
 					}
 				});

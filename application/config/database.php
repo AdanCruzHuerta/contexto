@@ -24,10 +24,10 @@ $db['default']['stricton'] = FALSE;
 /*$active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = '65.99.225.177';
-$db['default']['username'] = 'rgdiazco_conxto';
-$db['default']['password'] = 'SharkSoftContexto';
-$db['default']['database'] = 'rgdiazco_contexto';
+$db['default']['hostname'] = '174.136.30.159';
+$db['default']['username'] = 'rgdiazc1_adminSS';
+$db['default']['password'] = 'adminSS0946';
+$db['default']['database'] = 'rgdiazc1_contexto';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

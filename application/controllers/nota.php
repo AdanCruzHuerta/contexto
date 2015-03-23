@@ -50,32 +50,37 @@ class Nota extends CI_Controller {
         */
         if($tipo_nota == 1)
         {
-          if(move_uploaded_file($_FILES[0]['tmp_name'], $imagen_nota))
-          {
-            if($autor == 'redaccion'){
-              /*
-              |   Parametros para nueva nota comun
-              |   1.-$nombre, 2.-$contenido, 3.-$tipo_nota, 4.-$imagen_nota, 5.-$url_video, 6.-$redaccion, 7.-$secciones, 8.-$autor
-              */
-              $nota = $this->nuevanota->nota_comun($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,1,$secciones,$autor);
-              if($nota){
-                echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
-              }else{
-                echo json_encode(array('resp'=>false, 'mensaje'=>'Error al crear la nota'));
-              }
-            }else{
-              $autor = explode("-", $autor);
-              $autor = $autor[1];
-              $nota = $this->nuevanota->nota_comun($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,0,$secciones,$autor);
-              if($nota){
+
+          if($secciones == false){
+              echo json_encode(array('resp'=>false,'mensaje'=>'Selecciona al menos una Seccion'));
+          }else{
+            if(move_uploaded_file($_FILES[0]['tmp_name'], $imagen_nota))
+            {
+              if($autor == 'redaccion'){
+                /*
+                |   Parametros para nueva nota comun
+                |   1.-$nombre, 2.-$contenido, 3.-$tipo_nota, 4.-$imagen_nota, 5.-$url_video, 6.-$redaccion, 7.-$secciones, 8.-$autor
+                */
+                $nota = $this->nuevanota->nota_comun($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,1,$secciones,$autor);
+                if($nota){
                   echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
+                }else{
+                  echo json_encode(array('resp'=>false, 'mensaje'=>'Error al crear la nota'));
+                }
               }else{
-                echo json_encode(array("resp"=>false, "mensaje"=>"Error al crear la nota"));
+                $autor = explode("-", $autor);
+                $autor = $autor[1];
+                $nota = $this->nuevanota->nota_comun($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,0,$secciones,$autor);
+                if($nota){
+                    echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
+                }else{
+                  echo json_encode(array("resp"=>false, "mensaje"=>"Error al crear la nota"));
+                }
               }
             }
-          }
-          else{
-            echo json_encode(array('resp'=>false,'mensaje'=>'Error no se pudo guardar la imagen'));
+            else{
+              echo json_encode(array('resp'=>false,'mensaje'=>'Error no se pudo guardar la imagen'));
+            }
           }
         }
         /*
@@ -110,32 +115,36 @@ class Nota extends CI_Controller {
         */
         else if($tipo_nota == 3)
         {
-          if(move_uploaded_file($_FILES[0]['tmp_name'], $imagen_nota))
-          {
-            if($autor == 'redaccion'){
-              /*
-              |   Parametros para nueva nota comun
-              |   1.-$nombre, 2.-$contenido, 3.-$tipo_nota, 4.-$imagen_nota, 5.-$url_video, 6.-$redaccion, 7.-$secciones, 8.-$autor
-              */
-              $nota = $this->nuevanota->nota_comun($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,1,$secciones,$autor);
-              if($nota){
-                echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
-              }else{
-                echo json_encode(array('resp'=>false, 'mensaje'=>'Error al crear la nota'));
-              }
-            }else{
-              $autor = explode("-", $autor);
-              $autor = $autor[1];
-              $nota = $this->nuevanota->nota_comun($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,0,$secciones,$autor);
-              if($nota){
+          if($secciones == false){
+              echo json_encode(array('resp'=>false,'mensaje'=>'Selecciona al menos una Seccion'));
+          }else{
+              if(move_uploaded_file($_FILES[0]['tmp_name'], $imagen_nota))
+            {
+              if($autor == 'redaccion'){
+                /*
+                |   Parametros para nueva nota comun
+                |   1.-$nombre, 2.-$contenido, 3.-$tipo_nota, 4.-$imagen_nota, 5.-$url_video, 6.-$redaccion, 7.-$secciones, 8.-$autor
+                */
+                $nota = $this->nuevanota->nota_comun($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,1,$secciones,$autor);
+                if($nota){
                   echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
+                }else{
+                  echo json_encode(array('resp'=>false, 'mensaje'=>'Error al crear la nota'));
+                }
               }else{
-                echo json_encode(array("resp"=>false, "mensaje"=>"Error al crear la nota"));
+                $autor = explode("-", $autor);
+                $autor = $autor[1];
+                $nota = $this->nuevanota->nota_comun($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,0,$secciones,$autor);
+                if($nota){
+                    echo json_encode(array('resp'=>true,'mensaje'=>'La nota ha sido creada correctamente'));
+                }else{
+                  echo json_encode(array("resp"=>false, "mensaje"=>"Error al crear la nota"));
+                }
               }
             }
-          }
-          else{
-            echo json_encode(array('resp'=>false,'mensaje'=>'Error no se pudo guardar la imagen'));
+            else{
+              echo json_encode(array('resp'=>false,'mensaje'=>'Error no se pudo guardar la imagen'));
+            }
           }
         }
         /*
@@ -143,6 +152,9 @@ class Nota extends CI_Controller {
         */
         else                      
         {
+          if($secciones == false){
+              echo json_encode(array('resp'=>false,'mensaje'=>'Selecciona al menos una Seccion'));
+          }else{
             if ($autor == 'redaccion') {
               /*
               |   Parametros para nueva nota columna
@@ -166,6 +178,7 @@ class Nota extends CI_Controller {
                   echo json_encode(array("resp"=>false, "mensaje"=>"Error al crear la nota"));
                 }
             }
+          }
         }
       else:
 
