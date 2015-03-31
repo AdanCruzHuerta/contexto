@@ -301,5 +301,170 @@
 				<?php $this->load->view($contenido);?>
 			</div>
 		</div>
+		<script type="text/javascript">
+			
+			$(document).ready(function() {
+						
+					$.ajax({
+						type: "POST",
+						url: "<?php echo site_url('usuario/obtienenotiadmin'); ?>",
+						success: function(msg){
+						var datos = jQuery.parseJSON(msg);
+						if(datos.numero==0){
+							$('#noti').remove();
+						}
+						else{
+								$('#allnoti').append('<span id="noti"></span>')
+							    $('#noti').html(datos.numero);
+							    
+							    cnueva=0;
+							    cmodificacion=0;
+							    celiminacion=0;
+							    ctodas=0;
+
+							    e=0;
+							    n=0;
+							    m=0;
+							    t=0;
+							    
+							    anueva = Array();
+							    amodificacion = Array();
+							    aeliminacion= Array();
+							    atodas=Array();
+
+
+							    for (var i = 0; i < datos.notificaciones.length; i++) {
+							    	if(datos.notificaciones[i].tipo==1)
+							    	{
+							    		cnueva++;
+							    		$('#nueva').html(cnueva);
+							    		anueva[n] = datos.notificaciones[i].id;
+							    		n++;
+
+							    	}else if(datos.notificaciones[i].tipo==2){
+							    		
+							    		cmodificacion++;
+							    		$('#modificacion').html(cmodificacion);
+							    		amodificacion[m] = datos.notificaciones[i].id;
+							    		m++;
+							    
+							    	}else if(datos.notificaciones[i].tipo==3){
+							    		
+							    		celiminacion++;
+							    		$('#eliminacion').html(celiminacion);
+							    		aeliminacion[e] = datos.notificaciones[i].id;
+							    		e++;
+							    		
+							    	}
+							    	    ctodas++;
+							    		$('#toda').html(ctodas);
+							    		atodas[t] = datos.notificaciones[i].id;
+							    		t++;
+							    };
+
+							    nada=0;
+							    if(anueva.length==0)
+							    {
+							    	$('#arraynueva').val(nada);
+							    }else{
+							    	$('#arraynueva').val(anueva);
+							    }
+							    if(amodificacion.length==0)
+							    {
+							    	$('#arraymodificacion').val(nada);
+							    }else{
+							    	$('#arraymodificacion').val(amodificacion);
+							    }
+							    if(aeliminacion.length==0)
+							    {
+							    	$('#arrayeliminacion').val(nada);
+							    }else{
+							    	$('#arrayeliminacion').val(aeliminacion);
+							    }
+							    if(atodas.length==0)
+							    {
+							    	$('#arraytodas').val(nada);
+							    }else{
+							    	$('#arraytodas').val(atodas);
+							    }
+							 }
+						  }
+						});
+				
+
+					//setInterval('notificaciones()',10000);
+				
+			$('#allusuario').dataTable({
+							'language':{
+							'url': 'media/data_es.txt'
+							}
+						});
+			});
+
+
+			$( "#nuevas").click(function(){
+ 				id=$('#arraynueva').val();
+ 				$('#idnotifica').val(id);
+ 				$('#tipo').val(1);
+ 				document.vernotificaciones.submit();
+			});
+
+			$( "#modificaciones").click(function(){
+ 				id=$('#arraymodificacion').val();
+ 				$('#idnotifica').val(id);
+ 				$('#tipo').val(2);
+ 				document.vernotificaciones.submit();
+			});
+
+			$( "#eliminaciones" ).click(function(){
+ 				id=$('#arrayeliminacion').val();
+ 				$('#idnotifica').val(id);
+ 				$('#tipo').val(3);
+ 				document.vernotificaciones.submit();
+			});
+
+			$( "#todas" ).click(function(){
+ 				id=$('#arraytodas').val();
+ 				$('#idnotifica').val(id);
+ 				$('#tipo').val(4);
+ 				document.vernotificaciones.submit();
+			});
+
+			function notificaciones() {
+				$.ajax({
+						type: "POST",
+						url: "<?php echo site_url('usuario/obtienenotiadmin'); ?>",
+						success: function(msg){
+						var datos= jQuery.parseJSON(msg);
+						if(datos.numero==0){
+							$('#noti').remove();
+
+						}
+						else{
+
+							   	$('#allnoti').append('<span id="noti"></span>')
+							    $('#noti').html(datos.numero);
+							    cnueva=0;
+							    cmodificacion=0;
+							    celiminacion=0;
+							    for (var i = 0; i < datos.notificaciones.length; i++) {
+							    	if(datos.notificaciones[i].tipo==1)
+							    	{
+							    		cnueva++;
+							    		$('#nueva').html(cnueva);
+							    	}else if(datos.notificaciones[i].tipo==2){
+							    		cmodificacion++;
+							    		$('#modificacion').html(cmodificacion);
+							    	}else if(datos.notificaciones[i].tipo==3){
+							    		celiminacion++;
+							    		$('#eliminacion').html(celiminacion);
+							    	}
+							    };
+							    
+							 }
+						  }
+						});
+			}
+		</script>
 	</body>
 </html>

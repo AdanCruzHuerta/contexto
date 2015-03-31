@@ -4,65 +4,23 @@
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 					<ul class="list-group col-sm-4">
-						<li data-target="#myCarousel" data-slide-to="0" class="list-group-item noticia-item active">
-							Lorem ipsum dolor sit amet consetetur sadipscing
+						<?php $bandera = 0; foreach($notasSlider as $nota){ ?>
+						<li data-target="#myCarousel" data-slide-to="<?php echo $bandera; ?>" class="list-group-item noticia-item <?php if($bandera == 0){echo 'active';} ?>">
+							<?php echo $nota->nombre; ?>
 						</li>
-						<li data-target="#myCarousel" data-slide-to="1" class="list-group-item noticia-item">
-							consetetur sadipscing elitr, sed diam nonumy eirmod
-						</li>
-						<li data-target="#myCarousel" data-slide-to="2" class="list-group-item noticia-item">
-							tempor invidunt ut labore et dolore
-						</li>
-						<li data-target="#myCarousel" data-slide-to="3" class="list-group-item noticia-item">
-							magna aliquyam erat, sed diam voluptua
-						</li>
-						<li data-target="#myCarousel" data-slide-to="4" class="list-group-item">
-							tempor invidunt ut labore et dolore magna aliquyam erat
-						</li>
+						<?php $bandera++; } ?>
 					</ul>
 <!-- Wrapper for slides -->
 					<div class="carousel-inner">
-
-						<div class="item active">
-							<img src="http://placehold.it/620x296/cccccc/ffffff">
-							<div class="carousel-caption">
-								<h4><a href="#">Lorem ipsum dolor sit amet consetetur sadipscing</a></h4>
-								<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+						<?php $bandera = 0; foreach($notasSlider as $nota){ ?>
+						<div class="item <?php if($bandera == 0){echo 'active';} ?>">
+							<div style="background-image:url(<?php echo base_url().$nota->imagen_nota; ?>);">
+								<div class="carousel-caption">
+									<h3><a href="<?php echo $nota->id; ?>"><?php echo $nota->nombre; ?></a></h3>
+								</div>
 							</div>
 						</div><!-- End Item -->
-
-						<div class="item">
-							<img src="http://placehold.it/620x296/999999/cccccc">
-							<div class="carousel-caption">
-								<h4><a href="#">consetetur sadipscing elitr, sed diam nonumy eirmod</a></h4>
-								<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.></p>
-							</div>
-						</div><!-- End Item -->
-
-						<div class="item">
-							<img src="http://placehold.it/620x296/dddddd/333333">
-							<div class="carousel-caption">
-								<h4><a href="#">tempor invidunt ut labore et dolore</a></h4>
-								<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-							</div>
-						</div><!-- End Item -->
-
-						<div class="item">
-							<img src="http://placehold.it/620x296/999999/cccccc">
-							<div class="carousel-caption">
-								<h4><a href="#">magna aliquyam erat, sed diam voluptua</a></h4>
-								<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-							</div>
-						</div><!-- End Item -->
-
-						<div class="item">
-							<img src="http://placehold.it/620x296/dddddd/333333">
-							<div class="carousel-caption">
-								<h4><a href="#">tempor invidunt ut labore et dolore magna aliquyam erat</a></h4>
-								<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-							</div>
-						</div><!-- End Item -->
-
+						<?php $bandera++; } ?>
 					</div><!-- End Carousel Inner -->
 
 					<!-- Controls -->
@@ -81,60 +39,89 @@
 			</div> -->
 		</div>
 	</article>
+<!-- <pre>
+	<?php //print_r($ultimasNotas); ?>
+</pre> -->
 	<div class="row">
 		<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
 			<article>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<ul class="nav nav-tabs" role="tablist" id="tabs-1">
-							<li class="active"><a href="#estado" data-toggle="tab">Gobierno</a></li>
-							<li><a href="#municipio" data-toggle="tab">Seguridad</a></li>
-							<li><a href="#sociedad" data-toggle="tab">Educación</a></li>
-							<li><a href="#educacion" data-toggle="tab">Salud</a></li>
-							<li><a href="#educacion" data-toggle="tab">Economia</a></li>
+							<li class="active"><a href="#gobierno" data-toggle="tab">Gobierno</a></li>
+							<li><a href="#seguridad" data-toggle="tab">Seguridad</a></li>
+							<li><a href="#educacion" data-toggle="tab">Educación</a></li>
+							<li><a href="#salud" data-toggle="tab">Salud</a></li>
+							<li><a href="#economia" data-toggle="tab">Economia</a></li>
 						</ul>
 						<div class="tab-content" id="content-1">
-							<div class="tab-pane in fade active" id="estado">
+							<div class="tab-pane in fade active" id="gobierno">
 								<div class="media">
-									<div class="pull-left">
-										<img src="http://placehold.it/150x150/dddddd/333333" class="img-responsive">
+									<?php $gobierno = $ultimasNotas['gobierno'];?>
+									<div class="pull-left" style="width:150px;">
+										<img src="<?php echo $gobierno->imagen_nota; ?>" class="img-responsive">
 									</div>
 									<div class="media-body">
-										<h4 class="media-heading">Titulo</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dolorum, deserunt doloribus quidem ipsa voluptatum non optio quod neque earum dignissimos iusto magni atque incidunt magnam a, iure est provident?</p>
+										<h4 class="media-heading"><?php echo $gobierno->nombre; ?></h4>
+										<div><?php echo $gobierno->contenido; ?></div>
+										<a href="" class="pull-right">Ver mas</a>
+										<div class="clearfix"></div>
 									</div>
 								</div>
 							</div>
-							<div class="tab-pane fade" id="municipio">
+							<div class="tab-pane fade" id="seguridad">
 								<div class="media">
-									<div class="pull-left">
-										<img src="http://placehold.it/150x150/dddddd/333333" class="img-responsive">
+									<?php $seguridad = $ultimasNotas['seguridad']; ?>
+									<div class="pull-left" style="width:150px;">
+										<img src="<?php echo $seguridad->imagen_nota; ?>" class="img-responsive">
 									</div>
 									<div class="media-body">
-										<h4 class="media-heading">Titulo</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dolorum, deserunt doloribus quidem ipsa voluptatum non optio quod neque earum dignissimos iusto magni atque incidunt magnam a, iure est provident?</p>
-									</div>
-								</div>
-							</div>
-							<div class="tab-pane fade" id="sociedad">
-								<div class="media">
-									<div class="pull-left">
-										<img src="http://placehold.it/150x150/dddddd/333333" class="img-responsive">
-									</div>
-									<div class="media-body">
-										<h4 class="media-heading">Titulo</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dolorum, deserunt doloribus quidem ipsa voluptatum non optio quod neque earum dignissimos iusto magni atque incidunt magnam a, iure est provident?</p>
+										<h4 class="media-heading"><?php echo $seguridad->nombre; ?></h4>
+										<div><?php echo $seguridad->contenido; ?></div>
+										<a href="" class="pull-right">Ver mas</a>
+										<div class="clearfix"></div>
 									</div>
 								</div>
 							</div>
 							<div class="tab-pane fade" id="educacion">
 								<div class="media">
-									<div class="pull-left">
-										<img src="http://placehold.it/150x150/dddddd/333333" class="img-responsive">
+									<?php $educacion = $ultimasNotas['educacion']; ?>
+									<div class="pull-left" style="width:150px;">
+										<img src="<?php echo $educacion->imagen_nota; ?>" class="img-responsive">
 									</div>
 									<div class="media-body">
-										<h4 class="media-heading">Titulo</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dolorum, deserunt doloribus quidem ipsa voluptatum non optio quod neque earum dignissimos iusto magni atque incidunt magnam a, iure est provident?</p>
+										<h4 class="media-heading"><?php echo $educacion->nombre; ?></h4>
+										<div><?php echo $educacion->contenido; ?></div>
+										<a href="" class="pull-right">Ver mas</a>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="salud">
+								<div class="media">
+									<?php $salud = $ultimasNotas['salud']; ?>
+									<div class="pull-left" style="width:150px;">
+										<img src="<?php echo $salud->imagen_nota; ?>" class="img-responsive">
+									</div>
+									<div class="media-body">
+										<h4 class="media-heading"><?php echo $salud->nombre; ?></h4>
+										<div><?php echo $salud->contenido; ?></div>
+										<a href="" class="pull-right">Ver mas</a>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="economia">
+								<div class="media">
+									<?php $economia = $ultimasNotas['economia']; ?>
+									<div class="pull-left" style="width:150px;">
+										<img src="<?php echo $economia->imagen_nota; ?>" class="img-responsive">
+									</div>
+									<div class="media-body">
+										<h4 class="media-heading"><?php echo $economia->nombre; ?></h4>
+										<div><?php echo $economia->contenido; ?></div>
+										<a href="" class="pull-right">Ver mas</a>
+										<div class="clearfix"></div>
 									</div>
 								</div>
 							</div>
@@ -274,7 +261,7 @@
 
 							</video> -->
 							<h4 class="media-heading">Titulo</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dolorum, deserunt doloribus quidem ipsa voluptatum.</p>	
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dolorum, deserunt doloribus quidem ipsa voluptatum.</p>
 						</div>
 					</div>
 					<div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
@@ -315,7 +302,7 @@
 												The pack, the basic...
 											</div>
 										</a>
-									</div> 
+									</div>
 								</div>
 								<div class="hidden-xs col-sm-6 col-md-6 col-lg-6">
 									<div class='img-caption'>
@@ -325,7 +312,7 @@
 												The pack, the basic...
 											</div>
 										</a>
-									</div> 
+									</div>
 								</div>
 								<div class="hidden-xs col-sm-4 col-md-4 col-lg-4">
 									<div class='img-caption'>
@@ -335,7 +322,7 @@
 												The pack, the basic...
 											</div>
 										</a>
-									</div> 
+									</div>
 								</div>
 								<div class="hidden-xs col-sm-4 col-md-4 col-lg-4">
 									<div class='img-caption'>
@@ -345,7 +332,7 @@
 												The pack, the basic...
 											</div>
 										</a>
-									</div> 
+									</div>
 								</div>
 								<div class="hidden-xs col-sm-4 col-md-4 col-lg-4">
 									<div class='img-caption'>
@@ -355,7 +342,7 @@
 												The pack, the basic...
 											</div>
 										</a>
-									</div> 
+									</div>
 								</div>
 							</div>
 						</div>
@@ -366,7 +353,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<div class="panel-contexto bg-gris-c">
-							<legend><a href="#">OPINIÓN</a></legend> 
+							<legend><a href="#">OPINIÓN</a></legend>
 							<div class="carousel-reviews">
 								<div id="carousel-reviews" class="carousel slide" data-ride="carousel">
 									<div class="carousel-inner">

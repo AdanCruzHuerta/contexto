@@ -25,8 +25,12 @@
 		<header>
 			<div class="container">
 				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<img src="media/img/logo.png" class="logo-contexto">
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<img src="media/img/logo-contexto.png" class="logo-contexto">
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<ul class=""></ul>
+					</div>
 				</div>
 			</div>
 		</header>
@@ -99,7 +103,7 @@
 	<script>
 		$(document).ready(function(){
 			$(function(){
-				if ($(window).width() <= 780){	
+				if ($(window).width() <= 780){
 					$('div#menu-nav > ul.nav').removeClass('nav-justified').addClass('navbar-nav');
 				}else{
 					$('div#menu-nav > ul.nav').removeClass('navbar-nav').addClass('nav-justified');
@@ -114,7 +118,7 @@
 				});
 			});
 			$(window).resize(function(){
-				if ($(window).width() <= 780){	
+				if ($(window).width() <= 780){
 					$('div#menu-nav > ul.nav').removeClass('nav-justified').addClass('navbar-nav');
 				}else{
 					$('div#menu-nav > ul.nav').removeClass('navbar-nav').addClass('nav-justified');
@@ -127,11 +131,11 @@
 			//var myPlayer = videojs('vid1');
 			var clickEvent = false;
 			$('#myCarousel').carousel({
-				interval:   4000	
+				interval:   4000
 			}).on('click', '.list-group li', function() {
 				clickEvent = true;
 				$('.list-group li').removeClass('active');
-				$(this).addClass('active');		
+				$(this).addClass('active');
 			}).on('slid.bs.carousel', function(e) {
 				if(!clickEvent) {
 					var count = $('.list-group').children().length -1;
@@ -139,7 +143,7 @@
 					current.removeClass('active').next().addClass('active');
 					var id = parseInt(current.data('slide-to'));
 					if(count == id) {
-						$('.list-group li').first().addClass('active');	
+						$('.list-group li').first().addClass('active');
 					}
 				}
 				clickEvent = false;

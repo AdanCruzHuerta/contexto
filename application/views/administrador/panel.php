@@ -284,37 +284,37 @@
 						<div class="panel-body">
 							<div>
 							  	<label>
-							   		<input type="checkbox" name="secciones_id" value="14">
+							   		<input type="checkbox" name="secciones_id[]" value="14">
 							    	Cultura
 							  	</label>
 							</div>
 							<div>
 							  	<label>
-							   		<input type="checkbox" name="secciones_id" value="15">
+							   		<input type="checkbox" name="secciones_id[]" value="15">
 							    	Sociales
 							  	</label>
 							</div>
 							<div>
 							  	<label>
-							   		<input type="checkbox" name="secciones_id" value="16">
+							   		<input type="checkbox" name="secciones_id[]" value="16">
 							    	Medio ambiente
 							  	</label>
 							</div>
 							<div>
 							  	<label>
-							   		<input type="checkbox" name="secciones_id" value="17">
+							   		<input type="checkbox" name="secciones_id[]" value="17">
 							    	Urbes
 							  	</label>
 							</div>
 							<div>
 							  	<label>
-							   		<input type="checkbox" name="secciones_id" value="18">
+							   		<input type="checkbox" name="secciones_id[]" value="18">
 							    	Migrantes
 							  	</label>
 							</div>
 							<div>
 							  	<label>
-							   		<input type="checkbox" name="secciones_id" value="19">
+							   		<input type="checkbox" name="secciones_id[]" value="19">
 							    	Agro
 							  	</label>
 							</div>

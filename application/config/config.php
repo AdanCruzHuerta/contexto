@@ -14,8 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/contexto/';
-//$config['base_url']	= 'http://contexto.sharksoft.com.mx/';
+//$config['base_url']	= 'http://localhost/contexto/';
+$config['base_url']	= 'http://contexto.sharksoft.com.mx/';
 /*
 |--------------------------------------------------------------------------
 */

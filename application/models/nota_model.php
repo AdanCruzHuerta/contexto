@@ -10,6 +10,21 @@ class Nota_model extends CI_Model{
 		return $this->db->query("SELECT  n.id, n.nombre, n.fecha, n.tipo_nota, n.status, autores(n.id) as autor, publicador(n.id) as publicador FROM notas as n  order by(n.id)");
 	}
 
+	public function getNotasSlider()
+	{
+		return $this->db->select('notas.id')
+						->select('notas.nombre')
+						->select('notas.imagen_nota')
+						->from('notas')
+						->join('secciones_has_notas','notas.id = secciones_has_notas.notas_id')
+						->join('secciones','secciones_has_notas.secciones_id = secciones.id')
+						->where('secciones.id', 1) // primera plana
+						->order_by("notas.fecha")
+						->limit(5)
+						->get()
+						->result();
+	}
+
 	public function crearNota($nombre,$contenido,$tipo_nota,$imagen_nota,$url_video,$redaccion)
 	{
 		$this->db->set('nombre',$nombre)
